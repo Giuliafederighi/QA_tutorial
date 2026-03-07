@@ -1,0 +1,896 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Onboarding Ideal — QA Multi-Turn</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=JetBrains+Mono:wght@400;500&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0C0C0E;
+    --surface: #151518;
+    --surface-2: #1C1C21;
+    --surface-3: #232329;
+    --border: #2A2A33;
+    --border-light: #35354040;
+    --text: #E8E6E3;
+    --text-secondary: #9B9A97;
+    --text-muted: #6B6A68;
+    --accent: #F0C050;
+    --accent-dim: #F0C05020;
+    --accent-mid: #F0C05040;
+    --green: #4ADE80;
+    --green-dim: #4ADE8015;
+    --green-mid: #4ADE8030;
+    --red: #F87171;
+    --red-dim: #F8717115;
+    --red-mid: #F8717130;
+    --orange: #FB923C;
+    --orange-dim: #FB923C15;
+    --blue: #60A5FA;
+    --blue-dim: #60A5FA15;
+    --purple: #C084FC;
+    --purple-dim: #C084FC15;
+    --font-body: 'DM Sans', sans-serif;
+    --font-display: 'Fraunces', serif;
+    --font-mono: 'JetBrains Mono', monospace;
+    --radius: 12px;
+    --radius-sm: 8px;
+    --max-w: 920px;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; scrollbar-width: thin; scrollbar-color: var(--border) transparent; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font-body);
+    font-size: 15.5px;
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+  }
+  ::selection { background: var(--accent-mid); color: var(--accent); }
+
+  /* ── NAV ── */
+  .sidebar-toggle {
+    position: fixed; top: 20px; left: 20px; z-index: 1001;
+    width: 42px; height: 42px;
+    background: var(--surface-2); border: 1px solid var(--border);
+    border-radius: var(--radius-sm); cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    color: var(--text-secondary); transition: all .2s;
+  }
+  .sidebar-toggle:hover { background: var(--surface-3); color: var(--text); }
+  .sidebar-toggle svg { width: 18px; height: 18px; }
+  .sidebar-overlay {
+    position: fixed; inset: 0; background: #00000080;
+    z-index: 999; opacity: 0; pointer-events: none; transition: opacity .3s;
+  }
+  .sidebar-overlay.open { opacity: 1; pointer-events: all; }
+  .sidebar {
+    position: fixed; top: 0; left: -320px; width: 300px; height: 100vh;
+    background: var(--surface); border-right: 1px solid var(--border);
+    z-index: 1000; padding: 80px 24px 32px; overflow-y: auto;
+    transition: left .3s cubic-bezier(.4,0,.2,1);
+  }
+  .sidebar.open { left: 0; }
+  .sidebar h3 {
+    font-family: var(--font-mono); font-size: 10px; font-weight: 500;
+    text-transform: uppercase; letter-spacing: 2px;
+    color: var(--text-muted); margin-bottom: 16px;
+  }
+  .sidebar a {
+    display: block; padding: 8px 12px; color: var(--text-secondary);
+    text-decoration: none; font-size: 13.5px; border-radius: var(--radius-sm);
+    transition: all .15s; margin-bottom: 2px;
+  }
+  .sidebar a:hover { color: var(--text); background: var(--surface-2); }
+  .sidebar a.active { color: var(--accent); background: var(--accent-dim); }
+  .sidebar .nav-section {
+    font-size: 11px; font-weight: 600; color: var(--text-muted);
+    padding: 16px 12px 4px; text-transform: uppercase; letter-spacing: 1px;
+  }
+
+  /* ── LAYOUT ── */
+  .wrapper { max-width: var(--max-w); margin: 0 auto; padding: 0 32px; }
+
+  /* ── HERO ── */
+  .hero {
+    padding: 100px 0 60px; text-align: center; position: relative;
+  }
+  .hero::before {
+    content: ''; position: absolute; top: -100px; left: 50%;
+    transform: translateX(-50%); width: 600px; height: 600px;
+    background: radial-gradient(ellipse, var(--accent-dim) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 6px 16px; background: var(--accent-dim);
+    border: 1px solid var(--accent-mid); border-radius: 100px;
+    font-family: var(--font-mono); font-size: 11px; font-weight: 500;
+    color: var(--accent); text-transform: uppercase; letter-spacing: 1.5px;
+    margin-bottom: 28px;
+  }
+  .hero h1 {
+    font-family: var(--font-display);
+    font-size: clamp(36px, 5vw, 56px);
+    font-weight: 700; line-height: 1.15; color: var(--text); margin-bottom: 20px;
+  }
+  .hero h1 em { font-style: italic; color: var(--accent); }
+  .hero-sub {
+    font-size: 17px; color: var(--text-secondary);
+    max-width: 580px; margin: 0 auto 36px; line-height: 1.7;
+  }
+  .back-link {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 10px 20px; background: var(--surface-2);
+    border: 1px solid var(--border); border-radius: var(--radius);
+    color: var(--text-secondary); text-decoration: none;
+    font-size: 13.5px; font-weight: 500; transition: all .2s;
+  }
+  .back-link:hover { border-color: var(--accent-mid); color: var(--accent); background: var(--accent-dim); }
+
+  /* ── SECTIONS ── */
+  section { padding: 48px 0; border-top: 1px solid var(--border-light); }
+  .section-label {
+    font-family: var(--font-mono); font-size: 10px; font-weight: 500;
+    text-transform: uppercase; letter-spacing: 2.5px;
+    color: var(--accent); margin-bottom: 12px;
+  }
+  section h2 {
+    font-family: var(--font-display);
+    font-size: clamp(26px, 3.5vw, 34px);
+    font-weight: 600; color: var(--text); margin-bottom: 20px; line-height: 1.25;
+  }
+  section h3 {
+    font-size: 18px; font-weight: 600; color: var(--text); margin: 32px 0 12px;
+  }
+  section h4 { font-size: 15px; font-weight: 600; color: var(--text); margin: 20px 0 8px; }
+  section p { color: var(--text-secondary); margin-bottom: 16px; }
+  section p strong { color: var(--text); font-weight: 600; }
+  section ul, section ol {
+    padding-left: 20px; color: var(--text-secondary); margin-bottom: 16px;
+  }
+  section li { padding: 4px 0; line-height: 1.65; }
+  section li strong { color: var(--text); }
+
+  /* ── STEP HEADER ── */
+  .step-header {
+    display: flex; align-items: center; gap: 16px; margin-bottom: 24px;
+  }
+  .step-number {
+    width: 48px; height: 48px; border-radius: 50%;
+    background: var(--accent-dim); border: 2px solid var(--accent-mid);
+    color: var(--accent); font-family: var(--font-mono);
+    font-size: 18px; font-weight: 700;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  .step-title-block h2 { margin-bottom: 4px; }
+  .step-title-block .step-sub {
+    font-size: 13px; color: var(--text-muted); margin: 0;
+    font-family: var(--font-mono); text-transform: uppercase; letter-spacing: 1px;
+  }
+
+  /* ── CALLOUT ── */
+  .callout {
+    padding: 20px 24px; border-radius: var(--radius); border-left: 3px solid; margin: 20px 0;
+  }
+  .callout.warn { background: var(--orange-dim); border-color: var(--orange); }
+  .callout.warn .callout-title { color: var(--orange); }
+  .callout.danger { background: var(--red-dim); border-color: var(--red); }
+  .callout.danger .callout-title { color: var(--red); }
+  .callout.info { background: var(--blue-dim); border-color: var(--blue); }
+  .callout.info .callout-title { color: var(--blue); }
+  .callout.success { background: var(--green-dim); border-color: var(--green); }
+  .callout.success .callout-title { color: var(--green); }
+  .callout.accent { background: var(--accent-dim); border-color: var(--accent); }
+  .callout.accent .callout-title { color: var(--accent); }
+  .callout-title {
+    font-weight: 600; font-size: 13.5px; margin-bottom: 6px;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .callout p { color: var(--text-secondary); margin: 0; font-size: 14px; }
+
+  /* ── CARD ── */
+  .card {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: var(--radius); padding: 20px 24px; margin: 12px 0;
+  }
+  .card h4 { margin-top: 0; }
+
+  /* ── GRID ── */
+  .two-col {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 16px 0;
+  }
+  @media (max-width: 640px) { .two-col { grid-template-columns: 1fr; } }
+
+  /* ── PERSONA ROLES ── */
+  .role-card {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: var(--radius); padding: 20px; transition: border-color .2s;
+  }
+  .role-card:hover { border-color: var(--accent-mid); }
+  .role-icon {
+    font-size: 28px; margin-bottom: 10px;
+  }
+  .role-card h4 { font-size: 15px; font-weight: 600; color: var(--text); margin-bottom: 6px; }
+  .role-card p { font-size: 13.5px; color: var(--text-muted); margin: 0; line-height: 1.6; }
+
+  /* ── QUALITY TIERS ── */
+  .tier-card {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: var(--radius); padding: 20px; margin: 10px 0;
+  }
+  .tier-label {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-family: var(--font-mono); font-size: 11px; font-weight: 600;
+    padding: 4px 12px; border-radius: 100px;
+    text-transform: uppercase; letter-spacing: 1px; margin-bottom: 10px;
+  }
+  .tier-label.good { background: var(--green-dim); color: var(--green); }
+  .tier-label.mid-good { background: var(--accent-dim); color: var(--accent); }
+  .tier-label.mid-bad { background: var(--orange-dim); color: var(--orange); }
+  .tier-label.bad { background: var(--red-dim); color: var(--red); }
+  .tier-card p { font-size: 14px; color: var(--text-secondary); margin: 0; }
+
+  /* ── CODE / EXAMPLE ── */
+  .example-block {
+    background: var(--surface-2); border: 1px solid var(--border);
+    border-radius: var(--radius-sm); padding: 14px 18px; margin: 12px 0;
+    font-size: 13.5px; color: var(--text-secondary); line-height: 1.65;
+  }
+  .example-block.bad { border-left: 3px solid var(--red); background: var(--red-dim); color: var(--red); }
+  .example-block.good { border-left: 3px solid var(--green); background: var(--green-dim); color: var(--green); }
+  code {
+    font-family: var(--font-mono); font-size: 12.5px;
+    background: var(--surface-2); padding: 2px 8px;
+    border-radius: 4px; color: var(--accent);
+  }
+
+  /* ── STEP LIST ── */
+  .step-list { list-style: none; padding: 0; margin: 16px 0; }
+  .step-list li {
+    display: flex; gap: 14px; padding: 12px 0;
+    border-bottom: 1px solid var(--border-light);
+  }
+  .step-list li:last-child { border-bottom: none; }
+  .step-num {
+    width: 28px; height: 28px; border-radius: 50%; flex-shrink: 0;
+    background: var(--accent-dim); color: var(--accent);
+    font-family: var(--font-mono); font-size: 12px; font-weight: 700;
+    display: flex; align-items: center; justify-content: center;
+    margin-top: 2px;
+  }
+  .step-content { flex: 1; }
+  .step-content strong { color: var(--text); display: block; margin-bottom: 4px; }
+  .step-content p { font-size: 13.5px; color: var(--text-muted); margin: 0; line-height: 1.6; }
+
+  /* ── ACCORDION ── */
+  .accordion {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: var(--radius); margin: 10px 0; overflow: hidden;
+  }
+  .accordion-header {
+    padding: 16px 20px; display: flex; align-items: center; gap: 12px;
+    cursor: pointer; transition: background .15s; user-select: none;
+  }
+  .accordion-header:hover { background: var(--surface-2); }
+  .accordion-tag {
+    font-family: var(--font-mono); font-size: 10px; font-weight: 600;
+    padding: 3px 10px; border-radius: 100px;
+    text-transform: uppercase; letter-spacing: 1px; white-space: nowrap;
+  }
+  .accordion-tag.blue { background: var(--blue-dim); color: var(--blue); }
+  .accordion-tag.red { background: var(--red-dim); color: var(--red); }
+  .accordion-tag.green { background: var(--green-dim); color: var(--green); }
+  .accordion-tag.orange { background: var(--orange-dim); color: var(--orange); }
+  .accordion-tag.purple { background: var(--purple-dim); color: var(--purple); }
+  .accordion-title { font-size: 14.5px; font-weight: 600; color: var(--text); flex: 1; }
+  .accordion-chevron { color: var(--text-muted); transition: transform .2s; width: 16px; height: 16px; }
+  .accordion.open .accordion-chevron { transform: rotate(180deg); }
+  .accordion-body { max-height: 0; overflow: hidden; transition: max-height .35s ease; }
+  .accordion.open .accordion-body { max-height: 1200px; }
+  .accordion-content {
+    padding: 0 20px 20px; color: var(--text-secondary);
+    font-size: 14px; line-height: 1.65;
+  }
+  .accordion-content strong { color: var(--text); }
+  .accordion-content ul { padding-left: 18px; margin: 8px 0; }
+  .accordion-content li { padding: 3px 0; }
+
+  /* ── SEP ── */
+  .sep {
+    width: 48px; height: 3px; background: var(--accent);
+    border-radius: 100px; margin: 8px 0 20px; opacity: .6;
+  }
+
+  /* ── PROGRESS BAR ── */
+  .progress-bar-container {
+    position: fixed; top: 0; left: 0; right: 0; height: 3px;
+    background: var(--surface); z-index: 1002;
+  }
+  .progress-bar {
+    height: 100%; background: linear-gradient(90deg, var(--accent), var(--green));
+    width: 0%; transition: width .15s;
+  }
+
+  /* ── BACK TO TOP ── */
+  .back-to-top {
+    position: fixed; bottom: 28px; right: 28px;
+    width: 42px; height: 42px; background: var(--surface-2);
+    border: 1px solid var(--border); border-radius: 50%; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    color: var(--text-secondary); opacity: 0; pointer-events: none;
+    transition: all .2s; z-index: 100;
+  }
+  .back-to-top.visible { opacity: 1; pointer-events: all; }
+  .back-to-top:hover { background: var(--accent-dim); color: var(--accent); border-color: var(--accent-mid); }
+
+  /* ── FADE IN ── */
+  .fade-in { opacity: 0; transform: translateY(20px); transition: opacity .5s ease, transform .5s ease; }
+  .fade-in.visible { opacity: 1; transform: translateY(0); }
+
+  footer {
+    padding: 48px 0; border-top: 1px solid var(--border-light);
+    text-align: center; color: var(--text-muted); font-size: 13px;
+  }
+  footer strong { color: var(--text-secondary); }
+</style>
+</head>
+<body>
+
+<div class="progress-bar-container"><div class="progress-bar" id="progressBar"></div></div>
+
+<button class="sidebar-toggle" id="sidebarToggle" aria-label="Abrir navegação">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+</button>
+<div class="sidebar-overlay" id="sidebarOverlay"></div>
+<nav class="sidebar" id="sidebar">
+  <h3>Navegação</h3>
+  <a href="#intro">Introdução</a>
+  <div class="nav-section">Etapas</div>
+  <a href="#step1">1 · Treinamento da IA</a>
+  <a href="#step2">2 · Visão Geral da Função</a>
+  <a href="#step3">3 · Passo a Passo do Q/A</a>
+  <a href="#step4">4 · Decisão Final</a>
+  <a href="#step5">5 · Q/A Pós Needs Correction</a>
+  <div class="nav-section">Referência</div>
+  <a href="index.html">← Voltar ao Guia Principal</a>
+</nav>
+
+<button class="back-to-top" id="backToTop">
+  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="18 15 12 9 6 15"/></svg>
+</button>
+
+<div class="wrapper">
+
+  <!-- HERO -->
+  <header class="hero" id="intro">
+    <div class="hero-badge">● Onboarding Ideal — Q/A</div>
+    <h1>O Guia de<br><em>Onboarding Ideal</em></h1>
+    <p class="hero-sub">
+      Tudo que você precisa entender antes de fazer sua primeira revisão — do papel do Q/A até a decisão final de aprovar, corrigir ou rejeitar.
+    </p>
+    <a href="index.html" class="back-link">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
+      Voltar ao Guia Principal
+    </a>
+  </header>
+
+  <!-- ══════════════════════════════════════════
+       ETAPA 1 — ENTENDENDO O TREINAMENTO DA IA
+  ══════════════════════════════════════════ -->
+  <section id="step1" class="fade-in">
+    <div class="step-header">
+      <div class="step-number">1</div>
+      <div class="step-title-block">
+        <div class="section-label">Etapa 1 de 5</div>
+        <h2>Entendendo o Treinamento da IA e o Papel do Q/A</h2>
+      </div>
+    </div>
+    <div class="sep"></div>
+
+    <p>Muitas pessoas entram no projeto achando que vão <strong>treinar a IA diretamente</strong> — com foco total no assistente. Quem já foi Tasker costuma chegar mais familiarizado, pois já foi quem conversava com o assistente. É importante corrigir essa visão desde o início.</p>
+
+    <div class="callout accent">
+      <div class="callout-title">🎭 Pense como um Diretor de Teatro</div>
+      <p>O Q/A não avalia o que a IA disse. O Q/A avalia a <strong>performance do Tasker</strong> — como um diretor por trás da encenação. Você verifica se o ator seguiu o roteiro, ficou no personagem e entregou uma cena convincente.</p>
+    </div>
+
+    <h3>Os Personagens do Processo</h3>
+    <div class="two-col">
+      <div class="role-card">
+        <div class="role-icon">🎯</div>
+        <h4>A Tarefa</h4>
+        <p>Tem um objetivo de treinamento bem definido: expor a IA a situações da vida real que parecem simples mas escondem complexidade. O mesmo cenário pode mudar completamente dependendo dos fatores envolvidos.</p>
+      </div>
+      <div class="role-card">
+        <div class="role-icon">🎬</div>
+        <h4>O Tasker (Ator)</h4>
+        <p>É um especialista na área da tarefa. Seu papel é simular o cenário de forma autêntica: lê o roteiro (Scenario Context), entende seu papel (User Persona) e conduz a conversa com o assistente de forma natural.</p>
+      </div>
+      <div class="role-card">
+        <div class="role-icon">🤖</div>
+        <h4>O Assistente (IA)</h4>
+        <p>É o outro lado da conversa — o que está sendo testado. Mas atenção: <strong>você não avalia a qualidade das respostas da IA</strong>. Você avalia se o Tasker performou bem.</p>
+      </div>
+      <div class="role-card">
+        <div class="role-icon">🎓</div>
+        <h4>O Q/A (Você)</h4>
+        <p>É o diretor. Revisa sistematicamente o trabalho do Tasker, verifica se erros foram cometidos e decide se a tarefa pode ser aprovada, precisa de correção ou deve ser rejeitada.</p>
+      </div>
+    </div>
+
+    <h3>Por que a Simulação Existe</h3>
+    <p>Para que a IA esteja pronta para lidar com cenários complexos da vida real, eles precisam ser testados — preferencialmente em <strong>ambiente controlado</strong>. O ideal é que uma mesma tarefa seja simulada mais de uma vez, com atores diferentes, pois sempre vão performar de maneiras distintas. Mas o intuito é o mesmo: aprendizado.</p>
+
+    <h3>O que Compõe uma Tarefa</h3>
+    <div class="card">
+      <ul>
+        <li><strong>Scenario Context</strong> — O objetivo da tarefa. Às vezes inclui instruções como "inicie assim", "depois fale sobre X", "a partir do momento que a persona revelar Y, foque em Z".</li>
+        <li><strong>User Persona</strong> — O personagem que o Tasker deve interpretar.</li>
+        <li><strong>Initial Prompt</strong> — A primeira mensagem enviada para o assistente.</li>
+        <li><strong>Hidden Context</strong> — Informações que o Tasker sabe mas não pode revelar de cara — devem emergir naturalmente ao longo da conversa.</li>
+        <li><strong>Evaluation Criteria</strong> — Parâmetros de performance esperados da IA. São condições específicas para determinar se a IA passou ou falhou em cada critério.</li>
+      </ul>
+    </div>
+
+    <div class="callout info">
+      <div class="callout-title">💡 A Ideia Central</div>
+      <p>Você revisa o trabalho do <strong>humano</strong>, não do assistente. A qualidade das respostas da IA é consequência do treinamento — o que você garante é que o <em>dado de entrada</em> (a conversa do Tasker) foi bem executado.</p>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════
+       ETAPA 2 — VISÃO GERAL DA FUNÇÃO
+  ══════════════════════════════════════════ -->
+  <section id="step2" class="fade-in">
+    <div class="step-header">
+      <div class="step-number">2</div>
+      <div class="step-title-block">
+        <div class="section-label">Etapa 2 de 5</div>
+        <h2>Visão Geral da Função e a Plataforma</h2>
+      </div>
+    </div>
+    <div class="sep"></div>
+
+    <h3>Como Pegar Novas Tarefas</h3>
+    <p>As tarefas são atribuídas via <strong>auto-assign</strong> na plataforma. Se tiver algum problema ou dúvida sobre uma tarefa específica, mande a dúvida no canal do Slack ou busque alguém da equipe diretamente.</p>
+
+    <div class="callout warn">
+      <div class="callout-title">⚠️ Filtros Corretos — Sempre</div>
+      <p>Aplique <code>Status: in review</code> primeiro, depois <code>oldest first</code>. Na ordem errada, tarefas mais antigas podem não aparecer e a fila quebra.</p>
+    </div>
+
+    <h3>O que é da Tarefa vs. o que é do Tasker</h3>
+    <p>Esta distinção é crítica para identificar uso de IA corretamente. Muitos Q/As iniciantes ficam procurando travessão em tudo — mas <strong>o travessão pode estar no conteúdo pré-definido da tarefa, não no Tasker</strong>.</p>
+
+    <div class="two-col">
+      <div class="card">
+        <h4 style="color: var(--blue);">📋 Conteúdo da Tarefa (pré-definido)</h4>
+        <ul>
+          <li>User Persona</li>
+          <li>Scenario Context</li>
+          <li>Initial Prompt (às vezes pré-definido)</li>
+          <li>Hidden Context</li>
+          <li>Descrições dos critérios de avaliação</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h4 style="color: var(--green);">✍️ Conteúdo do Tasker (escrito pelo humano)</h4>
+        <ul>
+          <li>Initial Prompt (se modificado ou escrito do zero)</li>
+          <li>Todas as mensagens na conversa com o assistente</li>
+          <li>Justificativas de pass/fail nos critérios</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="callout info">
+      <div class="callout-title">🔍 Como verificar se o Initial Prompt foi editado</div>
+      <p>Use o <strong>histórico da tarefa (History)</strong> para ver se o Tasker modificou o Initial Prompt pré-definido ou criou um novo. Isso é importante para entender se o conteúdo é original do Tasker ou da tarefa.</p>
+    </div>
+
+    <h3>Situações Técnicas e o que Fazer</h3>
+    <div class="accordion">
+      <div class="accordion-header" onclick="toggleAccordion(this)">
+        <span class="accordion-tag blue">Caso</span>
+        <span class="accordion-title">Task sem conversa</span>
+        <svg class="accordion-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+      <div class="accordion-body">
+        <div class="accordion-content">Vá nos três pontos da tarefa e use a opção <strong>Report</strong>. Não tente corrigir ou aprovar uma tarefa sem conversa — reporte ao time.</div>
+      </div>
+    </div>
+    <div class="accordion">
+      <div class="accordion-header" onclick="toggleAccordion(this)">
+        <span class="accordion-tag blue">Caso</span>
+        <span class="accordion-title">Task sem critérios de avaliação respondidos</span>
+        <svg class="accordion-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+      <div class="accordion-body">
+        <div class="accordion-content">Mesma ação — use os <strong>três pontos → Report</strong>. Anote o problema claramente no campo de descrição.</div>
+      </div>
+    </div>
+    <div class="accordion">
+      <div class="accordion-header" onclick="toggleAccordion(this)">
+        <span class="accordion-tag orange">Caso</span>
+        <span class="accordion-title">Tasker comentou que não quer corrigir</span>
+        <svg class="accordion-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+      <div class="accordion-body">
+        <div class="accordion-content">Use os <strong>três pontos → Report</strong> e escale para o time. Documente o comentário do Tasker. Não force a aprovação de uma tarefa que não atende os padrões.</div>
+      </div>
+    </div>
+
+    <h3>Características de um Bom Feedback</h3>
+    <p>Independente da decisão (aprovado, needs correction ou rejection), seu feedback deve ser <strong>específico, acionável e baseado em evidência</strong>. Veja as diferenças:</p>
+
+    <div class="example-block bad">✗ Genérico: "O prompt tem problemas, por favor corrija."</div>
+    <div class="example-block good">✓ Específico: "O Initial Prompt menciona diretamente a dívida de R$50k — isso é parte do Hidden Context. Remova a referência ao valor específico e reescreva para que a IA descubra essa informação naturalmente ao longo da conversa."</div>
+
+    <div class="two-col" style="margin-top: 16px;">
+      <div class="card">
+        <h4>Se o Tasker errou</h4>
+        <p style="font-size: 13.5px; color: var(--text-muted);">Seja específico: cite a mensagem, o campo ou a parte exata onde o erro ocorreu. Não use frases prontas ou genéricas — feedback incompleto pode fazer o Tasker refazer tudo e ainda precisar de novas correções.</p>
+      </div>
+      <div class="card">
+        <h4>Se for sugestão de melhoria</h4>
+        <p style="font-size: 13.5px; color: var(--text-muted);">Mesmo em tasks aprovadas, oriente quando pertinente: "tome cuidado para não deixar conversa sem finalização", "lembre que a ideia é não dar dicas ao assistente".</p>
+      </div>
+    </div>
+
+    <div class="callout success">
+      <div class="callout-title">✓ Elogiar quando merece</div>
+      <p>Se encontrar algo excelente, elogie. Isso motiva o Tasker a continuar com o bom trabalho e reforça o que deve ser repetido.</p>
+    </div>
+
+    <div class="card" style="margin-top: 20px;">
+      <h4>Nota sobre Initial Prompt pré-definido</h4>
+      <p style="font-size: 14px; color: var(--text-secondary);">Se você perceber que o Tasker iniciou com o prompt pré-definido pela tarefa (que frequentemente vaza informações — nem sempre críticas), pode comentar assim:</p>
+      <div class="example-block" style="margin-top: 12px; font-family: var(--font-mono); font-size: 13px;">
+        "The conversation started with the task's pre-defined prompt; while this is not prohibited, please ensure it aligns with the task's purpose. Remember that as a reviewer, we expect you to verify if the initial prompt is consistent with the persona and scenario, and that it contains no significant hidden context leakage."
+      </div>
+      <p style="font-size: 13px; color: var(--text-muted); margin-top: 8px; margin-bottom: 0;"><em>Obs: Se não tiver certeza se é o initial prompt pré-definido, não comente sobre isso.</em></p>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════
+       ETAPA 3 — PASSO A PASSO DO Q/A
+  ══════════════════════════════════════════ -->
+  <section id="step3" class="fade-in">
+    <div class="step-header">
+      <div class="step-number">3</div>
+      <div class="step-title-block">
+        <div class="section-label">Etapa 3 de 5</div>
+        <h2>Passo a Passo do Q/A — Como Sistematizar uma Correção</h2>
+      </div>
+    </div>
+    <div class="sep"></div>
+
+    <ul class="step-list">
+      <li>
+        <div class="step-num">1</div>
+        <div class="step-content">
+          <strong>Familiarize-se com a tarefa</strong>
+          <p>Verifique se há comentários do Tasker com alguma dificuldade específica, ou se já tem feedback de correção anterior. Se tiver, a tarefa está voltando de uma correção — leia o histórico com atenção (ver Etapa 5).</p>
+        </div>
+      </li>
+      <li>
+        <div class="step-num">2</div>
+        <div class="step-content">
+          <strong>Verifique o Initial Prompt</strong>
+          <p>Ele é natural para a persona? Há vazamentos críticos de Hidden Context? Compare o Initial Prompt da aba Scenario Details com o da conversa com o assistente. Se forem diferentes e você não souber o que aconteceu, peça ajuda no canal.</p>
+        </div>
+      </li>
+      <li>
+        <div class="step-num">3</div>
+        <div class="step-content">
+          <strong>Avalie a conversa</strong>
+          <p>Leia todos os turnos antes de julgar qualquer coisa. Veja os critérios abaixo.</p>
+        </div>
+      </li>
+      <li>
+        <div class="step-num">4</div>
+        <div class="step-content">
+          <strong>Avalie os critérios de avaliação</strong>
+          <p>Verifique se os PASS/FAIL fazem sentido e se as justificativas são baseadas em evidências.</p>
+        </div>
+      </li>
+    </ul>
+
+    <h3>O que é Vazamento Crítico de Hidden Context?</h3>
+    <p>É o vazamento de Hidden Context que <strong>torna a conversa fácil demais</strong>, sem desafio nenhum. Como identificar: geralmente a conversa não flui e o usuário fica tentando desenvolver algo que não avança.</p>
+    <p>Se quiser um critério mais objetivo: não revelar mais do que 2 hard constraints no Initial Prompt. <strong>Reescrever o Hidden Context também é considerado vazamento.</strong></p>
+    <div class="callout danger">
+      <div class="callout-title">🔪 Regra da Knife</div>
+      <p>Nunca revelar a knife (o elemento central do Hidden Context), nem parte dela, nem dar pistas sobre ela no Initial Prompt.</p>
+    </div>
+
+    <h3>Critérios de Avaliação da Conversa</h3>
+    <div class="accordion">
+      <div class="accordion-header" onclick="toggleAccordion(this)">
+        <span class="accordion-tag blue">Verificar</span>
+        <span class="accordion-title">A conversa está toda em inglês?</span>
+        <svg class="accordion-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+      <div class="accordion-body">
+        <div class="accordion-content">As mensagens do Tasker devem estar em inglês. Qualquer mistura de idiomas é um sinal de alerta.</div>
+      </div>
+    </div>
+    <div class="accordion">
+      <div class="accordion-header" onclick="toggleAccordion(this)">
+        <span class="accordion-tag blue">Verificar</span>
+        <span class="accordion-title">A conversa é natural?</span>
+        <svg class="accordion-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+      <div class="accordion-body">
+        <div class="accordion-content">As mensagens soam como uma pessoa real? Linguagem casual, adequada ao persona, sem padrões robóticos ou excessivamente polidos.</div>
+      </div>
+    </div>
+    <div class="accordion">
+      <div class="accordion-header" onclick="toggleAccordion(this)">
+        <span class="accordion-tag blue">Verificar</span>
+        <span class="accordion-title">O Tasker manteve a persona até o final?</span>
+        <svg class="accordion-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+      <div class="accordion-body">
+        <div class="accordion-content">Às vezes o Tasker se descuida e começa a falar em terceira pessoa, ou age como se estivesse corrigindo a IA. Em uma conversa real, você não se confunde sobre quem você é.</div>
+      </div>
+    </div>
+    <div class="accordion">
+      <div class="accordion-header" onclick="toggleAccordion(this)">
+        <span class="accordion-tag blue">Verificar</span>
+        <span class="accordion-title">O Tasker interage com o assistente ou despeja informações?</span>
+        <svg class="accordion-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+      <div class="accordion-body">
+        <div class="accordion-content">
+          A ideia é <strong>não dar dicas ao assistente</strong>, não dificultar artificialmente, mas também não facilitar demais. As informações devem ser reveladas de maneira orgânica — geralmente relacionando a última mensagem enviada pelo assistente.<br><br>
+          Se parece que informações novas estão sendo adicionadas sem contexto, ou que o Tasker está guiando a IA para uma resposta específica, isso é um problema.
+        </div>
+      </div>
+    </div>
+    <div class="accordion">
+      <div class="accordion-header" onclick="toggleAccordion(this)">
+        <span class="accordion-tag red">Verificar</span>
+        <span class="accordion-title">Há uso claro de IA?</span>
+        <svg class="accordion-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+      <div class="accordion-body">
+        <div class="accordion-content">
+          <strong>Isso será tratado em detalhes na Etapa 4.</strong> Por ora, sinais de alerta: linguagem excessivamente polida e templateada, estrutura formatada de forma consistente em todos os turnos, presença de comandos para outra IA ou trechos de conversas com outra IA.
+          <br><br>
+          Importante: <strong>gramática polida por si só não é suficiente para acusar uso de IA</strong>. Mas você pode mencionar ao Tasker que o uso de gramática muito formal e excesso de pontuação formal pode não ser tão natural e pode sugerir ajuda externa.
+        </div>
+      </div>
+    </div>
+    <div class="accordion">
+      <div class="accordion-header" onclick="toggleAccordion(this)">
+        <span class="accordion-tag blue">Verificar</span>
+        <span class="accordion-title">A knife foi revelada no momento certo?</span>
+        <svg class="accordion-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+      <div class="accordion-body">
+        <div class="accordion-content">
+          A knife deve ser revelada <strong>SE</strong>:
+          <ul>
+            <li>O assistente merecer — perguntando, citando o assunto relacionado, criando um gancho natural para isso</li>
+            <li>For natural para aquela persona compartilhar naquele momento</li>
+          </ul>
+          Se o Tasker perdeu uma oportunidade <em>clara</em> de revelar, isso pode ser um Needs Correction. Mas se a culpa de não ter revelado é do assistente (que nunca perguntou), não é problema.<br><br>
+          O ideal é que seja revelada a partir da <strong>terceira mensagem</strong> enviada. Mas se for extremamente natural antes, pode-se ponderar.
+        </div>
+      </div>
+    </div>
+    <div class="accordion">
+      <div class="accordion-header" onclick="toggleAccordion(this)">
+        <span class="accordion-tag blue">Verificar</span>
+        <span class="accordion-title">O mínimo real de mensagens foi atingido?</span>
+        <svg class="accordion-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+      <div class="accordion-body">
+        <div class="accordion-content">
+          O mínimo são 14 mensagens trocadas (incluindo o Initial Prompt). Mas o importante é que <strong>as mensagens tenham conteúdo</strong>.<br><br>
+          Se no final ficou com múltiplos "thank you", ou vários pontos isolados, ou mensagens sem conteúdo real — isso não conta como conversa desenvolvida. <strong>Um "obrigada" no final é aceitável, mais do que um não.</strong>
+        </div>
+      </div>
+    </div>
+    <div class="accordion">
+      <div class="accordion-header" onclick="toggleAccordion(this)">
+        <span class="accordion-tag blue">Verificar</span>
+        <span class="accordion-title">A conversa foi concluída?</span>
+        <svg class="accordion-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+      <div class="accordion-body">
+        <div class="accordion-content">
+          Nem todas as conversas precisam de uma conclusão sólida. Mas a história não deve ser interrompida na metade só porque atingiu o mínimo de mensagens.<br><br>
+          Você pode deixar como feedback ao Tasker que ele se sinta à vontade para explorar a história mais — desde que de forma natural, sem pressão pelo mínimo.
+        </div>
+      </div>
+    </div>
+
+    <h3>Avaliando os Critérios de Avaliação</h3>
+    <p>Você concorda com os PASS/FAIL? Costumamos buscar pontos mais críticos — quando claramente a IA não fez o descrito e ganhou PASS, ou vice-versa. Se o critério for subjetivo e a justificativa for plausível mas você discordar, <strong>não precisa mandar para correção</strong> — valorize a opinião do Tasker (que geralmente tem conhecimento na área).</p>
+
+    <div class="two-col">
+      <div class="card">
+        <h4>Justificativa ideal</h4>
+        <div class="example-block good">Passed: In turn 5, the AI asked about income stability. In turn 7, it probed monthly expenses. By turn 9, it synthesized both into a tailored savings plan — directly addressing the 'financial assessment' criterion.</div>
+      </div>
+      <div class="card">
+        <h4>Justificativa boa (sem referências)</h4>
+        <p style="font-size: 13.5px; color: var(--text-muted);">Se estiver bem explicado mas sem referências de turno, deixe como <strong>sugestão</strong> para que ele comece a referenciar nas próximas — não mande para correção.</p>
+      </div>
+    </div>
+
+    <div class="callout warn">
+      <div class="callout-title">⚠️ Justificativa genérica = Needs Correction</div>
+      <p>Se estiver genérico ("the AI was helpful", "the conversation was natural"), peça correção e oriente a trazer as referências específicas de turno.</p>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════
+       ETAPA 4 — DECISÃO FINAL
+  ══════════════════════════════════════════ -->
+  <section id="step4" class="fade-in">
+    <div class="step-header">
+      <div class="step-number">4</div>
+      <div class="step-title-block">
+        <div class="section-label">Etapa 4 de 5</div>
+        <h2>A Decisão Final e o que é Uso Claro de IA</h2>
+      </div>
+    </div>
+    <div class="sep"></div>
+
+    <p>A régua de aprovação foi ajustada para evitar gargalos desnecessários. Saímos do filtro onde apenas o "Bom" passava para aceitar também o "Médio-Bom". Veja as categorias:</p>
+
+    <div class="tier-card">
+      <div class="tier-label good">✓ Bom</div>
+      <p>"Sim, claro." Tudo certo, natural e bem avaliado. Aprovação imediata.</p>
+    </div>
+    <div class="tier-card">
+      <div class="tier-label mid-good">~ Médio-Bom</div>
+      <p>Não é um "sim claro", mas também não é um "não". Geralmente possui 1–2 "Yes" e alguns "Parcialmente" nos steps de Q/A. Pode ser aprovado com feedback.</p>
+    </div>
+    <div class="tier-card">
+      <div class="tier-label mid-bad">! Médio-Ruim</div>
+      <p>Problemas estruturais ou de lógica. Precisa de correção.</p>
+    </div>
+    <div class="tier-card">
+      <div class="tier-label bad">✗ Ruim</div>
+      <p>Problemas graves. Dependendo da causa, Needs Correction ou Reject.</p>
+    </div>
+
+    <h3>Critério de Decisão: Aprovar vs. Corrigir</h3>
+    <p>Se a task for <strong>Médio-Bom</strong>, use a seguinte lógica:</p>
+
+    <div class="two-col">
+      <div class="card" style="border-color: var(--green-mid);">
+        <h4 style="color: var(--green);">→ Aprovar</h4>
+        <p style="font-size: 13.5px; color: var(--text-muted);">A correção seria custosa — para ajustar um detalhe, o Tasker teria que refazer quase tudo. Nesse caso, aprove com feedback orientativo.</p>
+      </div>
+      <div class="card" style="border-color: var(--accent-mid);">
+        <h4 style="color: var(--accent);">→ Needs Correction</h4>
+        <p style="font-size: 13.5px; color: var(--text-muted);">É um Quick Fix — apenas continuar a conversa por mais um turno, ou corrigir um critério de avaliação aplicado errado. Vale o pedido de correção.</p>
+      </div>
+    </div>
+
+    <div class="callout info">
+      <div class="callout-title">📌 Hierarquia de importância</div>
+      <p><strong>Interpretação da persona ≥ Naturalidade e flow da conversa &gt; Bom uso do hidden context na conversa / sem vazamentos críticos no initial prompt.</strong></p>
+    </div>
+
+    <h3>Quando Rejeitar</h3>
+    <ul>
+      <li>Pedidos repetidos de correção (individualizado — avalie o histórico)</li>
+      <li>Uso <strong>claro</strong> de IA: presença de comandos para outra IA, trechos de conversas com outra IA</li>
+    </ul>
+
+    <div class="callout danger">
+      <div class="callout-title">🚨 O que é Uso Claro de IA</div>
+      <p>Não é apenas gramática polida. Uso claro inclui: comandos para outra IA visíveis no texto, trechos de conversas com ChatGPT ou similar, linguagem extremamente templateada e consistente em TODOS os turnos sem variação humana. <strong>Gramática polida por si só não é suficiente para acusar alguém de IA.</strong></p>
+    </div>
+
+    <h3>Ficou com Dúvida?</h3>
+    <div class="callout accent">
+      <div class="callout-title">💬 Protocolo de Dúvida</div>
+      <p>Mande o link da task no canal do Slack e peça orientação sobre como prosseguir. É sempre melhor perguntar do que tomar uma decisão errada.</p>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════
+       ETAPA 5 — Q/A PÓS NEEDS CORRECTION
+  ══════════════════════════════════════════ -->
+  <section id="step5" class="fade-in">
+    <div class="step-header">
+      <div class="step-number">5</div>
+      <div class="step-title-block">
+        <div class="section-label">Etapa 5 de 5</div>
+        <h2>Q/A Pós Needs Correction</h2>
+      </div>
+    </div>
+    <div class="sep"></div>
+
+    <p>Quando uma tarefa volta de uma correção, o processo de revisão é diferente. Você precisa verificar não só a qualidade atual, mas se o feedback anterior foi devidamente aplicado.</p>
+
+    <ul class="step-list">
+      <li>
+        <div class="step-num">1</div>
+        <div class="step-content">
+          <strong>Verifique o último feedback dado</strong>
+          <p>Leia o comentário de correção anterior antes de qualquer coisa. O que foi pedido? Foi pedido alterar o Initial Prompt? Continuar a conversa? Corrigir critérios?</p>
+        </div>
+      </li>
+      <li>
+        <div class="step-num">2</div>
+        <div class="step-content">
+          <strong>Verifique se há comentário do Tasker</strong>
+          <p>Às vezes o Tasker comenta que não corrigiu por algum motivo específico (exemplo: "não sei como rodar uma nova conversa com o assistente"). Isso muda como você deve prosseguir.</p>
+        </div>
+      </li>
+      <li>
+        <div class="step-num">3</div>
+        <div class="step-content">
+          <strong>Verifique o histórico de alterações</strong>
+          <p>Se o feedback era para alterar o Initial Prompt, o histórico deve constar essa alteração e mostrar uma nova conversa com o assistente. <strong>Sempre compare os dois Initial Prompts</strong> para confirmar que uma nova conversa foi rodada.</p>
+        </div>
+      </li>
+      <li>
+        <div class="step-num">4</div>
+        <div class="step-content">
+          <strong>Atenção: nem tudo aparece no histórico</strong>
+          <p>O histórico nem sempre registra todas as mudanças feitas. Mas as alterações de Initial Prompt geralmente ficam registradas. Use essa informação com critério.</p>
+        </div>
+      </li>
+    </ul>
+
+    <div class="callout warn">
+      <div class="callout-title">⚠️ Se você discordar do feedback anterior</div>
+      <p>Faça sua análise individual e dê seu novo veredito, <strong>sem expor o colega no comentário da tarefa</strong>. Se o feedback anterior teve um erro muito grande, entre em contato com a equipe no privado e compartilhe isso de forma discreta.</p>
+    </div>
+
+    <div class="callout accent">
+      <div class="callout-title">🎯 Objetivo da Etapa 5</div>
+      <p>Garantir que a correção foi genuína — não só que a tarefa parece melhor, mas que as mudanças pedidas foram de fato implementadas. Uma task que "parece ok" mas não foi corrigida como pedido ainda deve ser mandada de volta.</p>
+    </div>
+  </section>
+
+  <footer>
+    <p><strong>Onboarding Ideal — QA Multi-Turn</strong> · Vetto / Vector</p>
+    <p style="margin-top: 6px;"><a href="index.html" style="color: var(--accent); text-decoration: none;">← Voltar ao Guia Principal</a></p>
+  </footer>
+</div>
+
+<script>
+  const toggle = document.getElementById('sidebarToggle');
+  const sidebar = document.getElementById('sidebar');
+  const overlay = document.getElementById('sidebarOverlay');
+  toggle.addEventListener('click', () => { sidebar.classList.toggle('open'); overlay.classList.toggle('open'); });
+  overlay.addEventListener('click', () => { sidebar.classList.remove('open'); overlay.classList.remove('open'); });
+  sidebar.querySelectorAll('a').forEach(a => {
+    a.addEventListener('click', () => { sidebar.classList.remove('open'); overlay.classList.remove('open'); });
+  });
+  const sections = document.querySelectorAll('section[id], header[id]');
+  const navLinks = sidebar.querySelectorAll('a[href^="#"]');
+  window.addEventListener('scroll', () => {
+    let current = '';
+    sections.forEach(s => { if (window.scrollY >= s.offsetTop - 120) current = s.id; });
+    navLinks.forEach(l => {
+      l.classList.remove('active');
+      if (l.getAttribute('href') === '#' + current) l.classList.add('active');
+    });
+    const h = document.documentElement.scrollHeight - window.innerHeight;
+    document.getElementById('progressBar').style.width = (window.scrollY / h * 100) + '%';
+    document.getElementById('backToTop').classList.toggle('visible', window.scrollY > 400);
+  });
+  document.getElementById('backToTop').addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+  function toggleAccordion(header) { header.parentElement.classList.toggle('open'); }
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.08 });
+  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
