@@ -804,6 +804,7 @@
   <a href="#phase3">III — Initial Prompt</a>
   <a href="#phase4">IV — Conversation</a>
   <a href="#phase5">V — Evaluation Criteria</a>
+  <a href="#updated-guidelines">Diretrizes Atualizadas</a>
   <div class="nav-phase">Reference</div>
   <a href="#edge-cases">Edge Cases</a>
   <a href="#mistakes">Common Mistakes</a>
@@ -1085,8 +1086,97 @@
     </div>
   </section>
 
+  <section id="updated-guidelines" class="fade-in">
+    <div class="section-label">04 · Diretrizes Atualizadas</div>
+    <h2>📏 Recalibrando a Régua: O que Aprovar?</h2>
+    <p>As regras de aprovação foram revisadas para evitar gargalos desnecessários. Confira as atualizações abaixo.</p>
+    <div class="sep"></div>
+
+    <h3 style="margin-bottom:12px;">Categorias de Qualidade</h3>
+    <p style="color:var(--text-secondary);font-size:14px;margin-bottom:16px;">A régua de aprovação foi ajustada: saímos do filtro onde apenas o "Bom" passava para aceitar também o "Médio-Bom".</p>
+    <div style="display:flex;flex-direction:column;gap:10px;margin-bottom:28px;">
+      <div style="background:var(--green-dim);border:1px solid var(--green);border-radius:8px;padding:14px 18px;">
+        <strong style="color:var(--green);">Bom</strong><span style="color:var(--text-secondary);margin-left:8px;">— "Sim claro." Tudo certo, natural e bem avaliado.</span>
+      </div>
+      <div style="background:rgba(255,180,0,0.08);border:1px solid #b8860b;border-radius:8px;padding:14px 18px;">
+        <strong style="color:#e0aa30;">Médio-Bom</strong><span style="color:var(--text-secondary);margin-left:8px;">— Não é um "sim claro", mas também não é um "não". Geralmente possui 1–2 "Yes" e alguns "Parcialmente" nos steps de QA.</span>
+      </div>
+      <div style="background:var(--red-dim);border:1px solid var(--red);border-radius:8px;padding:14px 18px;">
+        <strong style="color:var(--red);">Médio-Ruim / Ruim</strong><span style="color:var(--text-secondary);margin-left:8px;">— Problemas estruturais ou de lógica.</span>
+      </div>
+    </div>
+
+    <h3 style="margin-bottom:12px;">Critério de Decisão (Aprovar vs. Corrigir)</h3>
+    <p style="color:var(--text-secondary);font-size:14px;margin-bottom:16px;">Se a task for <strong>Médio-Bom</strong>, use a lógica:</p>
+    <div style="display:flex;flex-direction:column;gap:10px;margin-bottom:32px;">
+      <div style="background:var(--card);border:1px solid var(--border);border-radius:8px;padding:14px 18px;display:flex;gap:14px;align-items:flex-start;">
+        <span style="background:var(--red-dim);color:var(--red);border-radius:50%;width:28px;height:28px;display:flex;align-items:center;justify-content:center;font-weight:700;flex-shrink:0;">1</span>
+        <div><strong style="color:var(--text-primary);">Correção Custosa?</strong><br><span style="color:var(--text-secondary);font-size:14px;">Se para ajustar um detalhe o tasker tiver que refazer quase tudo: <strong>Aprove.</strong></span></div>
+      </div>
+      <div style="background:var(--card);border:1px solid var(--border);border-radius:8px;padding:14px 18px;display:flex;gap:14px;align-items:flex-start;">
+        <span style="background:var(--blue-dim);color:var(--blue);border-radius:50%;width:28px;height:28px;display:flex;align-items:center;justify-content:center;font-weight:700;flex-shrink:0;">2</span>
+        <div><strong style="color:var(--text-primary);">Quick Fix (Ajuste Rápido)?</strong><br><span style="color:var(--text-secondary);font-size:14px;">Se for apenas continuar a conversa por mais um turno ou corrigir um critério de avaliação aplicado errado: <strong>Mande para Correção.</strong></span></div>
+      </div>
+    </div>
+
+    <div class="sep"></div>
+    <h2 style="margin-top:28px;">🤖 Detecção de IA e Compliance</h2>
+    <div class="sep"></div>
+
+    <h3 style="margin-bottom:12px;">O "Falso Positivo" no Prompt Inicial</h3>
+    <div class="callout warn" style="margin-bottom:20px;">
+      <div class="callout-title">⚠️ Não julgue o tasker pelo estilo do prompt inicial</div>
+      <p><strong>Origem Sintética:</strong> O Initial Prompt (mensagem 1) é gerado sinteticamente pela plataforma — ele terá cara de IA (formatação, estilo).</p>
+      <p style="margin-top:8px;"><strong>Regra de Análise:</strong> Não use o estilo do prompt inicial para julgar o tasker. O foco da detecção de IA deve ser <strong>da mensagem 2 em diante.</strong></p>
+      <p style="margin-top:8px;"><strong>Edição pelo Tasker:</strong> O tasker só deve editar o prompt inicial se ele não fizer sentido como começo de conversa ou se contiver Hidden Context desnecessário.</p>
+    </div>
+
+    <h3 style="margin-bottom:12px;">IA na Conversa vs. IA na Justificativa</h3>
+    <div style="display:flex;flex-direction:column;gap:10px;margin-bottom:28px;">
+      <div style="background:var(--red-dim);border:1px solid var(--red);border-radius:8px;padding:14px 18px;">
+        <strong style="color:var(--red);">IA na Conversa (Diálogo)</strong><span style="color:var(--text-secondary);margin-left:8px;">— Continua sendo motivo de <strong>REJECT (Rejeição)</strong> imediata.</span>
+      </div>
+      <div style="background:rgba(255,180,0,0.08);border:1px solid #b8860b;border-radius:8px;padding:14px 18px;">
+        <strong style="color:#e0aa30;">IA na Justificativa (Critérios/Evals)</strong><span style="color:var(--text-secondary);margin-left:8px;">— Agora a norma é <strong>CORREÇÃO.</strong></span>
+        <ul style="color:var(--text-secondary);font-size:14px;margin:10px 0 0 0;padding-left:18px;display:flex;flex-direction:column;gap:6px;">
+          <li>Não rejeite a task se a conversa estiver boa e humana, mas a justificativa parecer técnica demais.</li>
+          <li>Mande para correção, avise sobre a seriedade do uso de IA e dê a chance de o tasker salvar o trabalho.</li>
+        </ul>
+      </div>
+    </div>
+    <div class="callout accent">
+      <div class="callout-title">💡 Dica de Ouro</div>
+      <p>Só aponte IA (Flag) se você "botar sua mão no fogo" que houve uso. Na dúvida, discuta com o time no Slack.</p>
+    </div>
+
+    <div class="sep" style="margin-top:28px;"></div>
+    <h2 style="margin-top:28px;">🧠 Avaliação Técnica (Evals e Contexto)</h2>
+    <div class="sep"></div>
+
+    <h3 style="margin-bottom:12px;">Justificativas de Critérios</h3>
+    <p style="color:var(--text-secondary);font-size:14px;margin-bottom:16px;">Ao revisar as justificativas do tasker, foque no essencial:</p>
+    <div style="display:flex;flex-direction:column;gap:10px;margin-bottom:20px;">
+      <div style="background:var(--card);border:1px solid var(--border);border-radius:8px;padding:14px 18px;display:flex;gap:14px;align-items:flex-start;">
+        <span style="background:var(--accent-dim);color:var(--accent);border-radius:50%;width:28px;height:28px;display:flex;align-items:center;justify-content:center;font-weight:700;flex-shrink:0;">1</span>
+        <span style="color:var(--text-secondary);font-size:14px;padding-top:4px;">Eu concordo com o <strong>Pass/Fail</strong> escolhido?</span>
+      </div>
+      <div style="background:var(--card);border:1px solid var(--border);border-radius:8px;padding:14px 18px;display:flex;gap:14px;align-items:flex-start;">
+        <span style="background:var(--accent-dim);color:var(--accent);border-radius:50%;width:28px;height:28px;display:flex;align-items:center;justify-content:center;font-weight:700;flex-shrink:0;">2</span>
+        <span style="color:var(--text-secondary);font-size:14px;padding-top:4px;">A justificativa está <strong>bem embasada nos turnos</strong>?</span>
+      </div>
+    </div>
+    <div class="callout info" style="margin-bottom:20px;">
+      <div class="callout-title">ℹ️ Se as duas respostas forem sim</div>
+      <p>Não perca tempo analisando se o estilo da escrita parece IA. Só intervenha em casos claros de "terceirização de raciocínio" — onde a IA claramente tomou a decisão por ele.</p>
+    </div>
+    <div class="callout success">
+      <div class="callout-title">✅ Vazamento Leve de Hidden Context</div>
+      <p>Se a conversa estiver natural e o tasker entender bem a persona, mas houver um vazamento leve de informação oculta que <strong>não seja</strong> a "Faca" (Knife) ou uma restrição pesada: a task é considerada <strong>Médio-Bom</strong> e é aprovável.</p>
+    </div>
+  </section>
+
   <section class="fade-in">
-    <div class="section-label">04 · Conduct Standards</div>
+    <div class="section-label">05 · Conduct Standards</div>
     <h2>Do's and Don'ts</h2>
     <p>These rules apply both when reviewing conversations and when evaluating. Keep them in mind at all times.</p>
     <div class="sep"></div>
