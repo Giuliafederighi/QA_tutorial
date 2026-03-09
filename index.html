@@ -945,9 +945,13 @@
   <div class="gate-card">
     <div class="gate-logo">● QA EXPERT GUIDE</div>
     <h2>Welcome to the Guide</h2>
-    <p>Enter your email to access the material and save your checklist progress across sessions.</p>
-    <input class="gate-input" id="gateEmail" type="email" placeholder="your@email.com" autocomplete="email"/>
-    <div class="gate-error" id="gateError">Please enter a valid email.</div>
+    <p>Enter your details to access the material and save your checklist progress across sessions.</p>
+    <div style="display:flex;gap:10px;">
+      <input class="gate-input" id="gateName" type="text" placeholder="First name" autocomplete="given-name" style="margin-bottom:0;"/>
+      <input class="gate-input" id="gateSurname" type="text" placeholder="Last name" autocomplete="family-name" style="margin-bottom:0;"/>
+    </div>
+    <input class="gate-input" id="gateEmail" type="email" placeholder="your@email.com" autocomplete="email" style="margin-top:10px;"/>
+    <div class="gate-error" id="gateError">Please fill in all fields with a valid email.</div>
     <button class="gate-btn" id="gateSubmit">Enter →</button>
   </div>
 </div>
@@ -1805,17 +1809,34 @@
     });
   }
 
-  function enterSite(email) {
+  // ── Google Sheets endpoint — paste your Apps Script URL here ──
+  const SHEETS_ENDPOINT = 'YOUR_APPS_SCRIPT_URL_HERE';
+
+  function submitToSheet(name, surname, email) {
+    if (!SHEETS_ENDPOINT || SHEETS_ENDPOINT === 'YOUR_APPS_SCRIPT_URL_HERE') return;
+    fetch(SHEETS_ENDPOINT, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ name, surname, email, date: new Date().toISOString() })
+    }).catch(() => {}); // silent fail — never block the user
+  }
+
+  function enterSite(name, surname, email) {
     localStorage.setItem('qa_user_email', email);
+    localStorage.setItem('qa_user_name', name);
+    localStorage.setItem('qa_user_surname', surname);
     document.getElementById('emailGate').classList.add('hidden');
     loadChecklist(email);
     bindChecklistSave(email);
     const pill = document.getElementById('userPill');
-    document.getElementById('userPillLabel').textContent = email.length > 22 ? email.slice(0,20)+'…' : email;
+    const displayName = (name + ' ' + surname).trim();
+    document.getElementById('userPillLabel').textContent = displayName.length > 22 ? displayName.slice(0,20)+'…' : displayName;
     pill.classList.add('visible');
     pill.addEventListener('click', () => {
-      if (confirm('Log out and switch email?')) {
+      if (confirm('Log out and switch account?')) {
         localStorage.removeItem('qa_user_email');
+        localStorage.removeItem('qa_user_name');
+        localStorage.removeItem('qa_user_surname');
         location.reload();
       }
     });
@@ -1823,19 +1844,24 @@
 
   // Check if already logged in
   const savedEmail = localStorage.getItem('qa_user_email');
+  const savedName = localStorage.getItem('qa_user_name') || '';
+  const savedSurname = localStorage.getItem('qa_user_surname') || '';
   if (savedEmail) {
-    enterSite(savedEmail);
+    enterSite(savedName, savedSurname, savedEmail);
   }
 
   // Gate submit
   document.getElementById('gateSubmit').addEventListener('click', () => {
-    const val = document.getElementById('gateEmail').value.trim();
+    const name = document.getElementById('gateName').value.trim();
+    const surname = document.getElementById('gateSurname').value.trim();
+    const email = document.getElementById('gateEmail').value.trim();
     const err = document.getElementById('gateError');
-    if (!val || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val)) {
+    if (!name || !surname || !email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
       err.style.display = 'block'; return;
     }
     err.style.display = 'none';
-    enterSite(val);
+    submitToSheet(name, surname, email);
+    enterSite(name, surname, email);
   });
   document.getElementById('gateEmail').addEventListener('keydown', e => {
     if (e.key === 'Enter') document.getElementById('gateSubmit').click();
@@ -1852,6 +1878,7 @@
   // PDF export
   document.getElementById('pdfBtn').addEventListener('click', () => {
     const email = localStorage.getItem('qa_user_email') || '—';
+    const fullName = [localStorage.getItem('qa_user_name'), localStorage.getItem('qa_user_surname')].filter(Boolean).join(' ') || email;
     const groups = [
       { title: 'Before — Task Inspection', ids: ['c1','c2','c3','c4','c5'] },
       { title: 'During — Conversation Review', ids: ['c6','c7','c8','c9','c10','c11','c12','c13'] },
@@ -1863,7 +1890,7 @@
       labels[id] = lbl ? lbl.textContent : id;
     });
     const now = new Date().toLocaleDateString('pt-BR');
-    let html = `<h1>QA Review Checklist</h1><div class="print-meta">Reviewer: ${email} &nbsp;·&nbsp; ${now}</div>`;
+    let html = `<h1>QA Review Checklist</h1><div class="print-meta">Reviewer: ${fullName} &nbsp;·&nbsp; ${now}</div>`;
     groups.forEach(g => {
       html += `<div class="print-group"><div class="print-group-title">${g.title}</div>`;
       g.ids.forEach(id => {
