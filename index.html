@@ -1139,8 +1139,8 @@
       <div style="background:rgba(255,180,0,0.08);border:1px solid #b8860b;border-radius:8px;padding:14px 18px;">
         <strong style="color:#e0aa30;">IA na Justificativa (Critérios/Evals)</strong><span style="color:var(--text-secondary);margin-left:8px;">— Agora a norma é <strong>CORREÇÃO.</strong></span>
         <ul style="color:var(--text-secondary);font-size:14px;margin:10px 0 0 0;padding-left:18px;display:flex;flex-direction:column;gap:6px;">
-          <li>Não rejeite a task se a conversa estiver boa e humana, mas a justificativa parecer técnica demais.</li>
-          <li>Mande para correção, avise sobre a seriedade do uso de IA e dê a chance de o tasker salvar o trabalho.</li>
+          <li>Não sinalize como IA se a conversa estiver boa e humana, mas a justificativa parecer técnica demais.</li>
+          <li>Mande para correção sinalizando o ponto específico — o desfecho final fica com o time de revisão.</li>
         </ul>
       </div>
     </div>
@@ -1167,11 +1167,11 @@
     </div>
     <div class="callout info" style="margin-bottom:20px;">
       <div class="callout-title">ℹ️ Se as duas respostas forem sim</div>
-      <p>Não perca tempo analisando se o estilo da escrita parece IA. Só intervenha em casos claros de "terceirização de raciocínio" — onde a IA claramente tomou a decisão por ele.</p>
+      <p>Não perca tempo analisando se o estilo da escrita parece IA. Só sinalize em casos claros de "terceirização de raciocínio" — onde fica evidente que o tasker não raciocinou por conta própria. A análise final não é responsabilidade do QA.</p>
     </div>
     <div class="callout success">
-      <div class="callout-title">✅ Vazamento Leve de Hidden Context</div>
-      <p>Se a conversa estiver natural e o tasker entender bem a persona, mas houver um vazamento leve de informação oculta que <strong>não seja</strong> a "Faca" (Knife) ou uma restrição pesada: a task é considerada <strong>Médio-Bom</strong> e é aprovável.</p>
+      <div class="callout-title">✅ Hidden Context no Prompt Inicial</div>
+      <p>Hidden context <strong>pode aparecer</strong> no prompt inicial, desde que siga o fluxo de naturalidade da conversa e o tasker consiga justificar facilmente a sua decisão. A presença de hidden context não é automaticamente um problema.</p>
     </div>
   </section>
 
