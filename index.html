@@ -1284,91 +1284,91 @@
   </section>
 
   <section id="updated-guidelines" class="fade-in">
-    <div class="section-label">04 · Diretrizes Atualizadas</div>
-    <h2>📏 Recalibrando a Régua: O que Aprovar?</h2>
-    <p>As regras de aprovação foram revisadas para evitar gargalos desnecessários. Confira as atualizações abaixo.</p>
+    <div class="section-label">04 · Updated Guidelines</div>
+    <h2>📏 Recalibrating the Standard: What to Approve?</h2>
+    <p>The approval rules have been revised to avoid unnecessary bottlenecks. Review the updates below.</p>
     <div class="sep"></div>
 
-    <h3 style="margin-bottom:12px;">Categorias de Qualidade</h3>
-    <p style="color:var(--text-secondary);font-size:14px;margin-bottom:16px;">A régua de aprovação foi ajustada: saímos do filtro onde apenas o "Bom" passava para aceitar também o "Médio-Bom".</p>
+    <h3 style="margin-bottom:12px;">Quality Categories</h3>
+    <p style="color:var(--text-secondary);font-size:14px;margin-bottom:16px;">The approval bar has been adjusted: we moved from a filter where only "Good" passed, to also accepting "Medium-Good".</p>
     <div style="display:flex;flex-direction:column;gap:10px;margin-bottom:28px;">
       <div style="background:var(--green-dim);border:1px solid var(--green);border-radius:8px;padding:14px 18px;">
-        <strong style="color:var(--green);">Bom</strong><span style="color:var(--text-secondary);margin-left:8px;">— "Sim claro." Tudo certo, natural e bem avaliado.</span>
+        <strong style="color:var(--green);">Good</strong><span style="color:var(--text-secondary);margin-left:8px;">— "Yes, clearly." Everything is correct, natural, and well-evaluated.</span>
       </div>
       <div style="background:rgba(255,180,0,0.08);border:1px solid #b8860b;border-radius:8px;padding:14px 18px;">
-        <strong style="color:#e0aa30;">Médio-Bom</strong><span style="color:var(--text-secondary);margin-left:8px;">— Não é um "sim claro", mas também não é um "não". Geralmente possui 1–2 "Yes" e alguns "Parcialmente" nos steps de QA.</span>
+        <strong style="color:#e0aa30;">Medium-Good</strong><span style="color:var(--text-secondary);margin-left:8px;">— Not a clear "yes", but not a "no" either. Usually has 1–2 "Yes" and some "Partially" across the QA steps.</span>
       </div>
       <div style="background:var(--red-dim);border:1px solid var(--red);border-radius:8px;padding:14px 18px;">
-        <strong style="color:var(--red);">Médio-Ruim / Ruim</strong><span style="color:var(--text-secondary);margin-left:8px;">— Problemas estruturais ou de lógica.</span>
+        <strong style="color:var(--red);">Medium-Bad / Bad</strong><span style="color:var(--text-secondary);margin-left:8px;">— Structural or logic problems.</span>
       </div>
     </div>
 
-    <h3 style="margin-bottom:12px;">Critério de Decisão (Aprovar vs. Corrigir)</h3>
-    <p style="color:var(--text-secondary);font-size:14px;margin-bottom:16px;">Se a task for <strong>Médio-Bom</strong>, use a lógica:</p>
+    <h3 style="margin-bottom:12px;">Decision Criteria (Approve vs. Correction)</h3>
+    <p style="color:var(--text-secondary);font-size:14px;margin-bottom:16px;">If the task is <strong>Medium-Good</strong>, apply this logic:</p>
     <div style="display:flex;flex-direction:column;gap:10px;margin-bottom:32px;">
       <div style="background:var(--card);border:1px solid var(--border);border-radius:8px;padding:14px 18px;display:flex;gap:14px;align-items:flex-start;">
         <span style="background:var(--red-dim);color:var(--red);border-radius:50%;width:28px;height:28px;display:flex;align-items:center;justify-content:center;font-weight:700;flex-shrink:0;">1</span>
-        <div><strong style="color:var(--text-primary);">Correção Custosa?</strong><br><span style="color:var(--text-secondary);font-size:14px;">Se para ajustar um detalhe o tasker tiver que refazer quase tudo: <strong>Aprove.</strong></span></div>
+        <div><strong style="color:var(--text-primary);">Costly Correction?</strong><br><span style="color:var(--text-secondary);font-size:14px;">If fixing a detail would require the tasker to redo almost everything: <strong>Approve.</strong></span></div>
       </div>
       <div style="background:var(--card);border:1px solid var(--border);border-radius:8px;padding:14px 18px;display:flex;gap:14px;align-items:flex-start;">
         <span style="background:var(--blue-dim);color:var(--blue);border-radius:50%;width:28px;height:28px;display:flex;align-items:center;justify-content:center;font-weight:700;flex-shrink:0;">2</span>
-        <div><strong style="color:var(--text-primary);">Quick Fix (Ajuste Rápido)?</strong><br><span style="color:var(--text-secondary);font-size:14px;">Se for apenas continuar a conversa por mais um turno ou corrigir um critério de avaliação aplicado errado: <strong>Mande para Correção.</strong></span></div>
+        <div><strong style="color:var(--text-primary);">Quick Fix?</strong><br><span style="color:var(--text-secondary);font-size:14px;">If it's just continuing the conversation for one more turn or correcting a wrongly applied evaluation criterion: <strong>Send for Correction.</strong></span></div>
       </div>
     </div>
 
     <div class="sep"></div>
-    <h2 style="margin-top:28px;">🤖 Detecção de IA e Compliance</h2>
+    <h2 style="margin-top:28px;">🤖 AI Detection & Compliance</h2>
     <div class="sep"></div>
 
-    <h3 style="margin-bottom:12px;">O "Falso Positivo" no Prompt Inicial</h3>
+    <h3 style="margin-bottom:12px;">The "False Positive" in the Initial Prompt</h3>
     <div class="callout warn" style="margin-bottom:20px;">
-      <div class="callout-title">⚠️ Não julgue o tasker pelo estilo do prompt inicial</div>
-      <p><strong>Origem Sintética:</strong> O Initial Prompt (mensagem 1) é gerado sinteticamente pela plataforma — ele terá cara de IA (formatação, estilo).</p>
-      <p style="margin-top:8px;"><strong>Regra de Análise:</strong> Não use o estilo do prompt inicial para julgar o tasker. O foco da detecção de IA deve ser <strong>da mensagem 2 em diante.</strong></p>
-      <p style="margin-top:8px;"><strong>Edição pelo Tasker:</strong> O tasker só deve editar o prompt inicial se ele não fizer sentido como começo de conversa ou se contiver Hidden Context desnecessário.</p>
+      <div class="callout-title">⚠️ Do not judge the tasker by the style of the initial prompt</div>
+      <p><strong>Synthetic Origin:</strong> The Initial Prompt (message 1) is synthetically generated by the platform — it will look like AI (formatting, style).</p>
+      <p style="margin-top:8px;"><strong>Analysis Rule:</strong> Do not use the style of the initial prompt to judge the tasker. The focus of AI detection should be <strong>from message 2 onwards.</strong></p>
+      <p style="margin-top:8px;"><strong>Tasker Edits:</strong> The tasker should only edit the initial prompt if it doesn't make sense as a conversation opener or if it contains unnecessary Hidden Context.</p>
     </div>
 
-    <h3 style="margin-bottom:12px;">IA na Conversa vs. IA na Justificativa</h3>
+    <h3 style="margin-bottom:12px;">AI in the Conversation vs. AI in the Justification</h3>
     <div style="display:flex;flex-direction:column;gap:10px;margin-bottom:28px;">
       <div style="background:var(--red-dim);border:1px solid var(--red);border-radius:8px;padding:14px 18px;">
-        <strong style="color:var(--red);">IA na Conversa (Diálogo)</strong><span style="color:var(--text-secondary);margin-left:8px;">— Continua sendo motivo de <strong>REJECT (Rejeição)</strong> imediata.</span>
+        <strong style="color:var(--red);">AI in the Conversation (Dialogue)</strong><span style="color:var(--text-secondary);margin-left:8px;">— Still grounds for immediate <strong>REJECT.</strong></span>
       </div>
       <div style="background:rgba(255,180,0,0.08);border:1px solid #b8860b;border-radius:8px;padding:14px 18px;">
-        <strong style="color:#e0aa30;">IA na Justificativa (Critérios/Evals)</strong><span style="color:var(--text-secondary);margin-left:8px;">— Agora a norma é <strong>CORREÇÃO.</strong></span>
+        <strong style="color:#e0aa30;">AI in the Justification (Criteria/Evals)</strong><span style="color:var(--text-secondary);margin-left:8px;">— The new standard is <strong>CORRECTION.</strong></span>
         <ul style="color:var(--text-secondary);font-size:14px;margin:10px 0 0 0;padding-left:18px;display:flex;flex-direction:column;gap:6px;">
-          <li>Não sinalize como IA se a conversa estiver boa e humana, mas a justificativa parecer técnica demais.</li>
-          <li>Mande para correção sinalizando o ponto específico — o desfecho final fica com o time de revisão.</li>
+          <li>Do not flag as AI if the conversation is good and human, but the justification sounds overly technical.</li>
+          <li>Send for correction flagging the specific point — the final call belongs to the review team.</li>
         </ul>
       </div>
     </div>
     <div class="callout accent">
-      <div class="callout-title">💡 Dica de Ouro</div>
-      <p>Só aponte IA (Flag) se você "botar sua mão no fogo" que houve uso. Na dúvida, discuta com o time no Slack.</p>
+      <div class="callout-title">💡 Golden Rule</div>
+      <p>Only flag AI if you would "bet your hand" that it was used. When in doubt, discuss with the team on Slack.</p>
     </div>
 
     <div class="sep" style="margin-top:28px;"></div>
-    <h2 style="margin-top:28px;">🧠 Avaliação Técnica (Evals e Contexto)</h2>
+    <h2 style="margin-top:28px;">🧠 Technical Evaluation (Evals & Context)</h2>
     <div class="sep"></div>
 
-    <h3 style="margin-bottom:12px;">Justificativas de Critérios</h3>
-    <p style="color:var(--text-secondary);font-size:14px;margin-bottom:16px;">Ao revisar as justificativas do tasker, foque no essencial:</p>
+    <h3 style="margin-bottom:12px;">Criteria Justifications</h3>
+    <p style="color:var(--text-secondary);font-size:14px;margin-bottom:16px;">When reviewing the tasker's justifications, focus on what matters:</p>
     <div style="display:flex;flex-direction:column;gap:10px;margin-bottom:20px;">
       <div style="background:var(--card);border:1px solid var(--border);border-radius:8px;padding:14px 18px;display:flex;gap:14px;align-items:flex-start;">
         <span style="background:var(--accent-dim);color:var(--accent);border-radius:50%;width:28px;height:28px;display:flex;align-items:center;justify-content:center;font-weight:700;flex-shrink:0;">1</span>
-        <span style="color:var(--text-secondary);font-size:14px;padding-top:4px;">Eu concordo com o <strong>Pass/Fail</strong> escolhido?</span>
+        <span style="color:var(--text-secondary);font-size:14px;padding-top:4px;">Do I agree with the <strong>Pass/Fail</strong> decision?</span>
       </div>
       <div style="background:var(--card);border:1px solid var(--border);border-radius:8px;padding:14px 18px;display:flex;gap:14px;align-items:flex-start;">
         <span style="background:var(--accent-dim);color:var(--accent);border-radius:50%;width:28px;height:28px;display:flex;align-items:center;justify-content:center;font-weight:700;flex-shrink:0;">2</span>
-        <span style="color:var(--text-secondary);font-size:14px;padding-top:4px;">A justificativa está <strong>bem embasada nos turnos</strong>?</span>
+        <span style="color:var(--text-secondary);font-size:14px;padding-top:4px;">Is the justification <strong>well grounded in specific turns</strong>?</span>
       </div>
     </div>
     <div class="callout info" style="margin-bottom:20px;">
-      <div class="callout-title">ℹ️ Se as duas respostas forem sim</div>
-      <p>Não perca tempo analisando se o estilo da escrita parece IA. Só sinalize em casos claros de "terceirização de raciocínio" — onde fica evidente que o tasker não raciocinou por conta própria. A análise final não é responsabilidade do QA.</p>
+      <div class="callout-title">ℹ️ If both answers are yes</div>
+      <p>Don't waste time analyzing whether the writing style looks like AI. Only flag in clear cases of "outsourced reasoning" — where it's evident the tasker did not think for themselves. The final analysis is not the QA's responsibility.</p>
     </div>
     <div class="callout success">
-      <div class="callout-title">✅ Hidden Context no Prompt Inicial</div>
-      <p>Hidden context <strong>pode aparecer</strong> no prompt inicial, desde que siga o fluxo de naturalidade da conversa e o tasker consiga justificar facilmente a sua decisão. A presença de hidden context não é automaticamente um problema.</p>
+      <div class="callout-title">✅ Hidden Context in the Initial Prompt</div>
+      <p>Hidden context <strong>can appear</strong> in the initial prompt, as long as it follows the naturalness flow of the conversation and the tasker can easily justify their decision. The presence of hidden context is not automatically a problem.</p>
     </div>
   </section>
 
