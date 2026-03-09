@@ -963,16 +963,19 @@
       </div>
       <div class="flow-step">
         <div class="flow-line"><div class="flow-dot red"></div><div class="flow-connector"></div></div>
-        <div class="flow-card flow-decision">
-          <h4>Decision · Does the Tasker appear to have used AI?</h4>
-          <p>Use overall judgment — not a checklist of signals. Clear grounds for rejection include: visible AI commands in the text, or copy-pasted snippets from another AI conversation. When evidence is ambiguous, <strong>do not reject</strong> — flag for team review. Polished grammar alone is not sufficient grounds for rejection.</p>
-          <div class="flow-branch">
-            <div><span class="branch-tag yes">NO clear evidence</span></div>
-            <div class="branch-text">Proceed to Phase III.</div>
-          </div>
-          <div class="flow-branch" style="margin-top:6px;">
-            <div><span class="branch-tag no">Clear AI evidence</span></div>
-            <div class="branch-text"><strong>STOP.</strong> Reject the task. If uncertain, flag for team review before rejecting.</div>
+        <div class="flow-card" style="padding:0;overflow:hidden;border:none;background:transparent;box-shadow:none;">
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+            <div style="background:linear-gradient(135deg,#052e16 0%,#14532d 100%);border:2px solid #4ADE80;border-radius:14px;padding:24px 20px;display:flex;flex-direction:column;gap:10px;">
+              <div style="font-size:28px;line-height:1;">✅</div>
+              <div style="font-family:var(--font-mono);font-size:11px;letter-spacing:.1em;color:#4ADE80;font-weight:700;">NO CLEAR EVIDENCE</div>
+              <div style="font-size:18px;font-weight:800;color:#fff;line-height:1.2;">Proceed to Phase III</div>
+            </div>
+            <div style="background:linear-gradient(135deg,#2d0505 0%,#450a0a 100%);border:2px solid #F87171;border-radius:14px;padding:24px 20px;display:flex;flex-direction:column;gap:10px;">
+              <div style="font-size:28px;line-height:1;">🚫</div>
+              <div style="font-family:var(--font-mono);font-size:11px;letter-spacing:.1em;color:#F87171;font-weight:700;">CLEAR AI EVIDENCE</div>
+              <div style="font-size:18px;font-weight:800;color:#fff;line-height:1.2;">STOP — Reject the task</div>
+              <div style="font-size:12px;color:#F8717199;line-height:1.4;">If uncertain, flag for team review before rejecting.</div>
+            </div>
           </div>
         </div>
       </div>
@@ -1009,10 +1012,6 @@
             <div class="branch-text">Request correction. Explain exactly which Hidden Context element was leaked and how it affects the conversation.</div>
           </div>
         </div>
-      </div>
-      <div class="callout warn" style="margin-left: 52px;">
-        <div class="callout-title">⚠️ #1 Source of Rework</div>
-        <p>Hidden context leaking in the initial prompt is the most common reason tasks are sent back for correction. Be especially vigilant here.</p>
       </div>
     </div>
 
