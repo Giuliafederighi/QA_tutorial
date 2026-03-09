@@ -784,9 +784,141 @@
     opacity: 1;
     transform: translateY(0);
   }
+
+  /* ── Email Gate Modal ── */
+  #emailGate {
+    position: fixed; inset: 0; z-index: 9999;
+    background: rgba(10,10,12,0.92);
+    backdrop-filter: blur(16px);
+    display: flex; align-items: center; justify-content: center;
+    padding: 24px;
+  }
+  #emailGate.hidden { display: none; }
+  .gate-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 48px 40px;
+    max-width: 440px; width: 100%;
+    text-align: center;
+    box-shadow: 0 32px 80px rgba(0,0,0,.6);
+  }
+  .gate-logo {
+    font-family: var(--font-mono);
+    font-size: 11px; letter-spacing: .18em;
+    color: var(--accent); margin-bottom: 32px;
+    display: flex; align-items: center; justify-content: center; gap: 8px;
+  }
+  .gate-logo::before, .gate-logo::after {
+    content: ''; flex: 1; height: 1px; background: var(--border);
+  }
+  .gate-card h2 {
+    font-size: 22px; font-weight: 800; color: var(--text); margin-bottom: 8px;
+  }
+  .gate-card p {
+    color: var(--text-secondary); font-size: 14px; margin-bottom: 28px; line-height: 1.6;
+  }
+  .gate-input {
+    width: 100%; padding: 13px 16px;
+    background: var(--bg); border: 1.5px solid var(--border);
+    border-radius: 10px; color: var(--text);
+    font-family: var(--font-body); font-size: 15px;
+    margin-bottom: 12px; box-sizing: border-box;
+    transition: border-color .2s;
+  }
+  .gate-input:focus { outline: none; border-color: var(--accent); }
+  .gate-btn {
+    width: 100%; padding: 13px;
+    background: var(--accent); color: #fff;
+    border: none; border-radius: 10px;
+    font-family: var(--font-body); font-size: 15px; font-weight: 700;
+    cursor: pointer; transition: opacity .2s;
+  }
+  .gate-btn:hover { opacity: .88; }
+  .gate-error {
+    color: var(--red); font-size: 12px; margin-top: 8px;
+    display: none;
+  }
+  .gate-user-pill {
+    display: none; align-items: center; gap: 8px;
+    font-size: 13px; color: var(--text-secondary);
+    background: var(--surface); border: 1px solid var(--border);
+    padding: 6px 12px; border-radius: 999px;
+    cursor: pointer;
+  }
+  .gate-user-pill.visible { display: flex; }
+  .gate-user-dot {
+    width: 8px; height: 8px; border-radius: 50%;
+    background: var(--accent); flex-shrink: 0;
+  }
+
+  /* ── PDF / Print ── */
+  .pdf-btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 10px 20px;
+    background: var(--accent-dim); border: 1.5px solid var(--accent);
+    color: var(--accent); border-radius: 8px;
+    font-family: var(--font-body); font-size: 14px; font-weight: 600;
+    cursor: pointer; transition: background .2s;
+    margin-top: 24px;
+  }
+  .pdf-btn:hover { background: var(--accent-mid); }
+  .reset-btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 10px 20px;
+    background: transparent; border: 1.5px solid var(--border);
+    color: var(--text-secondary); border-radius: 8px;
+    font-family: var(--font-body); font-size: 14px; font-weight: 600;
+    cursor: pointer; transition: border-color .2s, color .2s;
+    margin-top: 24px; margin-left: 10px;
+  }
+  .reset-btn:hover { border-color: var(--red); color: var(--red); }
+
+  @media print {
+    body > *:not(#printArea) { display: none !important; }
+    #printArea {
+      display: block !important;
+      font-family: 'Segoe UI', sans-serif;
+      color: #111; background: #fff; padding: 32px;
+    }
+    #printArea h1 { font-size: 20px; margin-bottom: 4px; }
+    #printArea .print-meta { font-size: 12px; color: #666; margin-bottom: 24px; }
+    #printArea .print-group { margin-bottom: 20px; }
+    #printArea .print-group-title {
+      font-size: 13px; font-weight: 700; text-transform: uppercase;
+      letter-spacing: .06em; color: #555; border-bottom: 1px solid #ddd;
+      padding-bottom: 6px; margin-bottom: 10px;
+    }
+    #printArea .print-item {
+      display: flex; align-items: flex-start; gap: 10px;
+      font-size: 13px; padding: 5px 0; border-bottom: 1px solid #f0f0f0;
+    }
+    #printArea .print-box {
+      width: 14px; height: 14px; border: 2px solid #999;
+      border-radius: 3px; flex-shrink: 0; margin-top: 1px;
+      background: #fff;
+    }
+    #printArea .print-box.checked { background: #111; border-color: #111; }
+  }
+  #printArea { display: none; }
 </style>
 </head>
 <body>
+<!-- Email Gate -->
+<div id="emailGate">
+  <div class="gate-card">
+    <div class="gate-logo">● QA EXPERT GUIDE</div>
+    <h2>Bem-vinda ao guia</h2>
+    <p>Insira seu e-mail para acessar o material e salvar seu progresso no checklist entre sessões.</p>
+    <input class="gate-input" id="gateEmail" type="email" placeholder="seu@email.com" autocomplete="email"/>
+    <div class="gate-error" id="gateError">Insira um e-mail válido.</div>
+    <button class="gate-btn" id="gateSubmit">Entrar →</button>
+  </div>
+</div>
+
+<!-- Print Area (hidden except on print) -->
+<div id="printArea"></div>
+
 <div class="progress-bar-container"><div class="progress-bar" id="progressBar"></div></div>
 <button class="sidebar-toggle" id="sidebarToggle" aria-label="Open navigation">
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
@@ -794,6 +926,10 @@
 <div class="sidebar-overlay" id="sidebarOverlay"></div>
 <nav class="sidebar" id="sidebar">
   <h3>Navigation</h3>
+  <div class="gate-user-pill" id="userPill" title="Clique para sair">
+    <div class="gate-user-dot"></div>
+    <span id="userPillLabel">—</span>
+  </div>
   <a href="#welcome">Welcome</a>
   <a href="#mission">Your Mission</a>
   <a href="#naturalness">Defining Naturalness</a>
@@ -1388,13 +1524,13 @@
   <section id="checklist" class="fade-in">
     <div class="section-label">09 · Quick Reference</div>
     <h2>Interactive Review Checklist</h2>
-    <p>Use this for every task. Check items off as you go — the checklist resets when you reload the page.</p>
+    <p>Use this for every task. Seu progresso é salvo automaticamente por e-mail.</p>
     <div class="sep"></div>
     <div class="checklist-group">
       <h4>Before — Task Inspection</h4>
       <div class="checklist-item"><input type="checkbox" id="c1"><label for="c1">Persona and context feel realistic and coherent</label></div>
       <div class="checklist-item"><input type="checkbox" id="c2"><label for="c2">Initial prompt matches persona and scenario</label></div>
-      <div class="checklist-item"><input type="checkbox" id="c3"><label for="c3">Initial prompt does NOT contain hidden context</label></div>
+      <div class="checklist-item"><input type="checkbox" id="c3"><label for="c3">Hidden context in initial prompt (if any) follows the naturalness flow and tasker can justify their decision</label></div>
       <div class="checklist-item"><input type="checkbox" id="c4"><label for="c4">All fields are consistent (Persona ↔ Scenario ↔ Prompt ↔ Criteria)</label></div>
       <div class="checklist-item"><input type="checkbox" id="c5"><label for="c5">No unusual or contradictory evaluation criteria</label></div>
     </div>
@@ -1416,6 +1552,8 @@
       <div class="checklist-item"><input type="checkbox" id="c16"><label for="c16">Reasoning is auditable — anyone could trace the logic</label></div>
       <div class="checklist-item"><input type="checkbox" id="c17"><label for="c17">Final decision submitted: Approve or Needs Correction</label></div>
     </div>
+    <button class="pdf-btn" id="pdfBtn">📄 Exportar PDF</button>
+    <button class="reset-btn" id="resetBtn">↺ Resetar Checklist</button>
   </section>
 
   <section class="fade-in">
@@ -1567,6 +1705,113 @@
     });
   }, { threshold: 0.08 });
   document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+  // ── Email Gate & Checklist Persistence ──
+  const CHECKBOXES = ['c1','c2','c3','c4','c5','c6','c7','c8','c9','c10','c11','c12','c13','c14','c15','c16','c17'];
+
+  function storageKey(email) {
+    return 'qa_checklist_' + email.trim().toLowerCase();
+  }
+
+  function saveChecklist(email) {
+    const state = {};
+    CHECKBOXES.forEach(id => {
+      const el = document.getElementById(id);
+      if (el) state[id] = el.checked;
+    });
+    localStorage.setItem(storageKey(email), JSON.stringify(state));
+  }
+
+  function loadChecklist(email) {
+    const raw = localStorage.getItem(storageKey(email));
+    if (!raw) return;
+    try {
+      const state = JSON.parse(raw);
+      CHECKBOXES.forEach(id => {
+        const el = document.getElementById(id);
+        if (el && state[id] !== undefined) el.checked = state[id];
+      });
+    } catch(e) {}
+  }
+
+  function bindChecklistSave(email) {
+    CHECKBOXES.forEach(id => {
+      const el = document.getElementById(id);
+      if (el) el.addEventListener('change', () => saveChecklist(email));
+    });
+  }
+
+  function enterSite(email) {
+    localStorage.setItem('qa_user_email', email);
+    document.getElementById('emailGate').classList.add('hidden');
+    loadChecklist(email);
+    bindChecklistSave(email);
+    const pill = document.getElementById('userPill');
+    document.getElementById('userPillLabel').textContent = email.length > 22 ? email.slice(0,20)+'…' : email;
+    pill.classList.add('visible');
+    pill.addEventListener('click', () => {
+      if (confirm('Sair e trocar de e-mail?')) {
+        localStorage.removeItem('qa_user_email');
+        location.reload();
+      }
+    });
+  }
+
+  // Check if already logged in
+  const savedEmail = localStorage.getItem('qa_user_email');
+  if (savedEmail) {
+    enterSite(savedEmail);
+  }
+
+  // Gate submit
+  document.getElementById('gateSubmit').addEventListener('click', () => {
+    const val = document.getElementById('gateEmail').value.trim();
+    const err = document.getElementById('gateError');
+    if (!val || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val)) {
+      err.style.display = 'block'; return;
+    }
+    err.style.display = 'none';
+    enterSite(val);
+  });
+  document.getElementById('gateEmail').addEventListener('keydown', e => {
+    if (e.key === 'Enter') document.getElementById('gateSubmit').click();
+  });
+
+  // Reset checklist
+  document.getElementById('resetBtn').addEventListener('click', () => {
+    if (!confirm('Resetar todos os checks desta sessão?')) return;
+    const email = localStorage.getItem('qa_user_email');
+    CHECKBOXES.forEach(id => { const el = document.getElementById(id); if (el) el.checked = false; });
+    if (email) saveChecklist(email);
+  });
+
+  // PDF export
+  document.getElementById('pdfBtn').addEventListener('click', () => {
+    const email = localStorage.getItem('qa_user_email') || '—';
+    const groups = [
+      { title: 'Before — Task Inspection', ids: ['c1','c2','c3','c4','c5'] },
+      { title: 'During — Conversation Review', ids: ['c6','c7','c8','c9','c10','c11','c12','c13'] },
+      { title: 'After — Evaluation', ids: ['c14','c15','c16','c17'] }
+    ];
+    const labels = {};
+    CHECKBOXES.forEach(id => {
+      const lbl = document.querySelector('label[for="'+id+'"]');
+      labels[id] = lbl ? lbl.textContent : id;
+    });
+    const now = new Date().toLocaleDateString('pt-BR');
+    let html = `<h1>QA Review Checklist</h1><div class="print-meta">Revisora: ${email} &nbsp;·&nbsp; ${now}</div>`;
+    groups.forEach(g => {
+      html += `<div class="print-group"><div class="print-group-title">${g.title}</div>`;
+      g.ids.forEach(id => {
+        const checked = document.getElementById(id)?.checked;
+        html += `<div class="print-item"><div class="print-box ${checked?'checked':''}"></div><span>${labels[id]}</span></div>`;
+      });
+      html += '</div>';
+    });
+    const area = document.getElementById('printArea');
+    area.innerHTML = html;
+    window.print();
+  });
 </script>
 </body>
 </html>
