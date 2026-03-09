@@ -901,6 +901,42 @@
     #printArea .print-box.checked { background: #111; border-color: #111; }
   }
   #printArea { display: none; }
+
+  /* ── Back Link ── */
+  .back-link {
+    display: inline-block; font-size: 12px; color: var(--text-secondary);
+    text-decoration: none; margin-bottom: 16px;
+    font-family: var(--font-mono); letter-spacing: .04em;
+    transition: color .2s;
+  }
+  .back-link:hover { color: var(--accent); }
+
+  /* ── Index / TOC grid ── */
+  .index-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 12px;
+    margin-top: 16px;
+  }
+  .index-card {
+    display: block; text-decoration: none;
+    padding: 16px 18px;
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 10px; transition: border-color .2s, background .2s;
+  }
+  .index-card:hover {
+    border-color: var(--accent); background: var(--accent-dim);
+  }
+  .index-card-num {
+    font-family: var(--font-mono); font-size: 10px;
+    color: var(--accent); letter-spacing: .1em; margin-bottom: 6px;
+  }
+  .index-card-title {
+    font-size: 14px; font-weight: 700; color: var(--text); margin-bottom: 4px;
+  }
+  .index-card-desc {
+    font-size: 12px; color: var(--text-secondary); line-height: 1.4;
+  }
 </style>
 </head>
 <body>
@@ -908,11 +944,11 @@
 <div id="emailGate">
   <div class="gate-card">
     <div class="gate-logo">● QA EXPERT GUIDE</div>
-    <h2>Bem-vinda ao guia</h2>
-    <p>Insira seu e-mail para acessar o material e salvar seu progresso no checklist entre sessões.</p>
-    <input class="gate-input" id="gateEmail" type="email" placeholder="seu@email.com" autocomplete="email"/>
-    <div class="gate-error" id="gateError">Insira um e-mail válido.</div>
-    <button class="gate-btn" id="gateSubmit">Entrar →</button>
+    <h2>Welcome to the Guide</h2>
+    <p>Enter your email to access the material and save your checklist progress across sessions.</p>
+    <input class="gate-input" id="gateEmail" type="email" placeholder="your@email.com" autocomplete="email"/>
+    <div class="gate-error" id="gateError">Please enter a valid email.</div>
+    <button class="gate-btn" id="gateSubmit">Enter →</button>
   </div>
 </div>
 
@@ -926,10 +962,11 @@
 <div class="sidebar-overlay" id="sidebarOverlay"></div>
 <nav class="sidebar" id="sidebar">
   <h3>Navigation</h3>
-  <div class="gate-user-pill" id="userPill" title="Clique para sair">
+  <div class="gate-user-pill" id="userPill" title="Click to log out">
     <div class="gate-user-dot"></div>
     <span id="userPillLabel">—</span>
   </div>
+  <a href="#index">Index</a>
   <a href="#welcome">Welcome</a>
   <a href="#mission">Your Mission</a>
   <a href="#naturalness">Defining Naturalness</a>
@@ -940,7 +977,7 @@
   <a href="#phase3">III — Initial Prompt</a>
   <a href="#phase4">IV — Conversation</a>
   <a href="#phase5">V — Evaluation Criteria</a>
-  <a href="#updated-guidelines">Diretrizes Atualizadas</a>
+  <a href="#updated-guidelines">Updated Guidelines</a>
   <div class="nav-phase">Reference</div>
   <a href="#edge-cases">Edge Cases</a>
   <a href="#mistakes">Common Mistakes</a>
@@ -975,6 +1012,31 @@
       </a>
     </div>
   </header>
+
+  <section id="index" class="fade-in">
+    <div class="section-label">00 · Table of Contents</div>
+    <h2>Index</h2>
+    <p>All sections of this guide — click any card to jump straight there.</p>
+    <div class="sep"></div>
+    <div class="index-grid">
+      <a class="index-card" href="#mission"><div class="index-card-num">01</div><div class="index-card-title">Your Mission</div><div class="index-card-desc">What you're responsible for as a QAer</div></a>
+      <a class="index-card" href="#naturalness"><div class="index-card-num">02</div><div class="index-card-title">Defining Naturalness</div><div class="index-card-desc">The core quality standard you're evaluating</div></a>
+      <a class="index-card" href="#flowchart"><div class="index-card-num">03</div><div class="index-card-title">Visual Flowchart</div><div class="index-card-desc">Step-by-step review process at a glance</div></a>
+      <a class="index-card" href="#phase1"><div class="index-card-num">04</div><div class="index-card-title">I — Scenario Check</div><div class="index-card-desc">Validate the task setup before reading the chat</div></a>
+      <a class="index-card" href="#phase2"><div class="index-card-num">05</div><div class="index-card-title">II — AI Detection</div><div class="index-card-desc">Spot non-human patterns in the conversation</div></a>
+      <a class="index-card" href="#phase3"><div class="index-card-num">06</div><div class="index-card-title">III — Initial Prompt</div><div class="index-card-desc">Check alignment between prompt and persona</div></a>
+      <a class="index-card" href="#phase4"><div class="index-card-num">07</div><div class="index-card-title">IV — Conversation</div><div class="index-card-desc">Evaluate naturalness and hidden context flow</div></a>
+      <a class="index-card" href="#phase5"><div class="index-card-num">08</div><div class="index-card-title">V — Evaluation Criteria</div><div class="index-card-desc">Assess pass/fail standards and justify your call</div></a>
+      <a class="index-card" href="#updated-guidelines"><div class="index-card-num">09</div><div class="index-card-title">Updated Guidelines</div><div class="index-card-desc">Latest rule changes and clarifications</div></a>
+      <a class="index-card" href="#edge-cases"><div class="index-card-num">10</div><div class="index-card-title">Edge Cases</div><div class="index-card-desc">How to handle tricky or ambiguous situations</div></a>
+      <a class="index-card" href="#mistakes"><div class="index-card-num">11</div><div class="index-card-title">Common Mistakes</div><div class="index-card-desc">Errors to avoid in your reviews</div></a>
+      <a class="index-card" href="#onboarding"><div class="index-card-num">12</div><div class="index-card-title">Onboarding Flow</div><div class="index-card-desc">Your first steps: read, review, notify, get feedback</div></a>
+      <a class="index-card" href="#first-week"><div class="index-card-num">13</div><div class="index-card-title">First Week</div><div class="index-card-desc">What to expect in your first week on the team</div></a>
+      <a class="index-card" href="#checklist"><div class="index-card-num">14</div><div class="index-card-title">Quick Checklist</div><div class="index-card-desc">Interactive review checklist — saved per email</div></a>
+      <a class="index-card" href="#templates"><div class="index-card-num">15</div><div class="index-card-title">Templates</div><div class="index-card-desc">Copy-paste templates for your review comments</div></a>
+      <a class="index-card" href="#resources"><div class="index-card-num">16</div><div class="index-card-title">Resources & Links</div><div class="index-card-desc">Platform links, Slack, and reference docs</div></a>
+    </div>
+  </section>
 
   <section id="mission" class="fade-in">
     <div class="section-label">01 · Your Mission</div>
@@ -1446,6 +1508,7 @@
   </section>
 
   <section id="onboarding" class="fade-in">
+    <a href="#index" class="back-link">← Index</a>
     <div class="section-label">07 · Getting Started</div>
     <h2>Your Onboarding Flow</h2>
     <p>Every new QAer follows this process. Take your time — this is your one shot to demonstrate your judgment.</p>
@@ -1522,9 +1585,10 @@
   </section>
 
   <section id="checklist" class="fade-in">
+    <a href="#index" class="back-link">← Index</a>
     <div class="section-label">09 · Quick Reference</div>
     <h2>Interactive Review Checklist</h2>
-    <p>Use this for every task. Seu progresso é salvo automaticamente por e-mail.</p>
+    <p>Use this for every task. Your progress is saved automatically per email.</p>
     <div class="sep"></div>
     <div class="checklist-group">
       <h4>Before — Task Inspection</h4>
@@ -1552,8 +1616,8 @@
       <div class="checklist-item"><input type="checkbox" id="c16"><label for="c16">Reasoning is auditable — anyone could trace the logic</label></div>
       <div class="checklist-item"><input type="checkbox" id="c17"><label for="c17">Final decision submitted: Approve or Needs Correction</label></div>
     </div>
-    <button class="pdf-btn" id="pdfBtn">📄 Exportar PDF</button>
-    <button class="reset-btn" id="resetBtn">↺ Resetar Checklist</button>
+    <button class="pdf-btn" id="pdfBtn">📄 Export PDF</button>
+    <button class="reset-btn" id="resetBtn">↺ Reset Checklist</button>
   </section>
 
   <section class="fade-in">
@@ -1750,7 +1814,7 @@
     document.getElementById('userPillLabel').textContent = email.length > 22 ? email.slice(0,20)+'…' : email;
     pill.classList.add('visible');
     pill.addEventListener('click', () => {
-      if (confirm('Sair e trocar de e-mail?')) {
+      if (confirm('Log out and switch email?')) {
         localStorage.removeItem('qa_user_email');
         location.reload();
       }
@@ -1779,7 +1843,7 @@
 
   // Reset checklist
   document.getElementById('resetBtn').addEventListener('click', () => {
-    if (!confirm('Resetar todos os checks desta sessão?')) return;
+    if (!confirm('Reset all checks for this task?')) return;
     const email = localStorage.getItem('qa_user_email');
     CHECKBOXES.forEach(id => { const el = document.getElementById(id); if (el) el.checked = false; });
     if (email) saveChecklist(email);
@@ -1799,7 +1863,7 @@
       labels[id] = lbl ? lbl.textContent : id;
     });
     const now = new Date().toLocaleDateString('pt-BR');
-    let html = `<h1>QA Review Checklist</h1><div class="print-meta">Revisora: ${email} &nbsp;·&nbsp; ${now}</div>`;
+    let html = `<h1>QA Review Checklist</h1><div class="print-meta">Reviewer: ${email} &nbsp;·&nbsp; ${now}</div>`;
     groups.forEach(g => {
       html += `<div class="print-group"><div class="print-group-title">${g.title}</div>`;
       g.ids.forEach(id => {
