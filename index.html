@@ -964,14 +964,14 @@
         <div class="flow-line"><div class="flow-dot red"></div><div class="flow-connector"></div></div>
         <div class="flow-card flow-decision">
           <h4>Decision · Does the Tasker appear to have used AI?</h4>
-          <p>Look for: overly polished language, unnatural long dashes, templated phrasing, generic "AI-like" writing patterns, or suspiciously perfect structure.</p>
+          <p>Use overall judgment — not a checklist of signals. Clear grounds for rejection include: visible AI commands in the text, or copy-pasted snippets from another AI conversation. When evidence is ambiguous, <strong>do not reject</strong> — flag for team review. Polished grammar alone is not sufficient grounds for rejection.</p>
           <div class="flow-branch">
-            <div><span class="branch-tag yes">NO AI detected</span></div>
+            <div><span class="branch-tag yes">NO clear evidence</span></div>
             <div class="branch-text">Proceed to Phase III.</div>
           </div>
           <div class="flow-branch" style="margin-top:6px;">
-            <div><span class="branch-tag no">AI detected</span></div>
-            <div class="branch-text"><strong>STOP.</strong> Reject the task immediately. Include a clear warning: risk of permanent ban from all Vector projects.</div>
+            <div><span class="branch-tag no">Clear AI evidence</span></div>
+            <div class="branch-text"><strong>STOP.</strong> Reject the task. If uncertain, flag for team review before rejecting.</div>
           </div>
         </div>
       </div>
@@ -1372,7 +1372,7 @@
     <div class="mistake-row">
       <div class="mistake-card">
         <h4>🚫 AI-Usage Rejection Template</h4>
-        <div class="wrong">Rejected due to suspected AI-generated Tasker content (overly polished and templated phrasing across multiple turns). This violates project policy and may result in permanent ban from Vector projects.</div>
+        <div class="wrong">Rejected due to clear evidence of AI-generated Tasker content (e.g. visible AI prompts or copy-pasted AI conversation found in the task). This violates project policy and may result in permanent ban from Vector projects.</div>
       </div>
       <div class="mistake-card">
         <h4>⚠️ Scenario Conflict Escalation</h4>
