@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Onboarding Ideal — QA Multi-Turn</title>
+<title>Ideal Onboarding — QA Multi-Turn</title>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=JetBrains+Mono:wght@400;500&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&display=swap" rel="stylesheet">
 <style>
   :root {
@@ -36,10 +36,15 @@
     --font-mono: 'JetBrains Mono', monospace;
     --radius: 12px;
     --radius-sm: 8px;
+    --radius-lg: 20px;
     --max-w: 920px;
   }
   * { margin: 0; padding: 0; box-sizing: border-box; }
-  html { scroll-behavior: smooth; scrollbar-width: thin; scrollbar-color: var(--border) transparent; }
+  html {
+    scroll-behavior: smooth;
+    scrollbar-width: thin;
+    scrollbar-color: var(--border) transparent;
+  }
   body {
     background: var(--bg);
     color: var(--text);
@@ -48,16 +53,28 @@
     line-height: 1.7;
     -webkit-font-smoothing: antialiased;
   }
-  ::selection { background: var(--accent-mid); color: var(--accent); }
+  ::selection {
+    background: var(--accent-mid);
+    color: var(--accent);
+  }
 
   /* ── NAV ── */
   .sidebar-toggle {
-    position: fixed; top: 20px; left: 20px; z-index: 1001;
-    width: 42px; height: 42px;
-    background: var(--surface-2); border: 1px solid var(--border);
-    border-radius: var(--radius-sm); cursor: pointer;
-    display: flex; align-items: center; justify-content: center;
-    color: var(--text-secondary); transition: all .2s;
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    z-index: 1001;
+    width: 42px;
+    height: 42px;
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-secondary);
+    transition: all .2s;
   }
   .sidebar-toggle:hover { background: var(--surface-3); color: var(--text); }
   .sidebar-toggle svg { width: 18px; height: 18px; }
@@ -74,79 +91,143 @@
   }
   .sidebar.open { left: 0; }
   .sidebar h3 {
-    font-family: var(--font-mono); font-size: 10px; font-weight: 500;
-    text-transform: uppercase; letter-spacing: 2px;
-    color: var(--text-muted); margin-bottom: 16px;
+    font-family: var(--font-mono);
+    font-size: 10px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: var(--text-muted);
+    margin-bottom: 16px;
   }
   .sidebar a {
-    display: block; padding: 8px 12px; color: var(--text-secondary);
-    text-decoration: none; font-size: 13.5px; border-radius: var(--radius-sm);
-    transition: all .15s; margin-bottom: 2px;
+    display: block;
+    padding: 8px 12px;
+    color: var(--text-secondary);
+    text-decoration: none;
+    font-size: 13.5px;
+    border-radius: var(--radius-sm);
+    transition: all .15s;
+    margin-bottom: 2px;
   }
   .sidebar a:hover { color: var(--text); background: var(--surface-2); }
   .sidebar a.active { color: var(--accent); background: var(--accent-dim); }
   .sidebar .nav-section {
-    font-size: 11px; font-weight: 600; color: var(--text-muted);
-    padding: 16px 12px 4px; text-transform: uppercase; letter-spacing: 1px;
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--text-muted);
+    padding: 16px 12px 4px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
   }
 
   /* ── LAYOUT ── */
-  .wrapper { max-width: var(--max-w); margin: 0 auto; padding: 0 32px; }
+  .wrapper {
+    max-width: var(--max-w);
+    margin: 0 auto;
+    padding: 0 32px;
+  }
 
   /* ── HERO ── */
   .hero {
-    padding: 100px 0 60px; text-align: center; position: relative;
+    padding: 100px 0 60px;
+    text-align: center;
+    position: relative;
   }
   .hero::before {
-    content: ''; position: absolute; top: -100px; left: 50%;
-    transform: translateX(-50%); width: 600px; height: 600px;
+    content: '';
+    position: absolute;
+    top: -100px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 600px;
+    height: 600px;
     background: radial-gradient(ellipse, var(--accent-dim) 0%, transparent 70%);
     pointer-events: none;
   }
   .hero-badge {
-    display: inline-flex; align-items: center; gap: 8px;
-    padding: 6px 16px; background: var(--accent-dim);
-    border: 1px solid var(--accent-mid); border-radius: 100px;
-    font-family: var(--font-mono); font-size: 11px; font-weight: 500;
-    color: var(--accent); text-transform: uppercase; letter-spacing: 1.5px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 16px;
+    background: var(--accent-dim);
+    border: 1px solid var(--accent-mid);
+    border-radius: 100px;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--accent);
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
     margin-bottom: 28px;
   }
   .hero h1 {
     font-family: var(--font-display);
     font-size: clamp(36px, 5vw, 56px);
-    font-weight: 700; line-height: 1.15; color: var(--text); margin-bottom: 20px;
+    font-weight: 700;
+    line-height: 1.15;
+    color: var(--text);
+    margin-bottom: 20px;
   }
-  .hero h1 em { font-style: italic; color: var(--accent); }
+  .hero h1 em {
+    font-style: italic;
+    color: var(--accent);
+  }
   .hero-sub {
-    font-size: 17px; color: var(--text-secondary);
-    max-width: 580px; margin: 0 auto 36px; line-height: 1.7;
+    font-size: 17px;
+    color: var(--text-secondary);
+    max-width: 580px;
+    margin: 0 auto 36px;
+    line-height: 1.7;
   }
   .back-link {
-    display: inline-flex; align-items: center; gap: 8px;
-    padding: 10px 20px; background: var(--surface-2);
-    border: 1px solid var(--border); border-radius: var(--radius);
-    color: var(--text-secondary); text-decoration: none;
-    font-size: 13.5px; font-weight: 500; transition: all .2s;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 20px;
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    color: var(--text-secondary);
+    text-decoration: none;
+    font-size: 13.5px;
+    font-weight: 500;
+    transition: all .2s;
   }
   .back-link:hover { border-color: var(--accent-mid); color: var(--accent); background: var(--accent-dim); }
 
   /* ── SECTIONS ── */
-  section { padding: 48px 0; border-top: 1px solid var(--border-light); }
+  section {
+    padding: 48px 0;
+    border-top: 1px solid var(--border-light);
+  }
   .section-label {
-    font-family: var(--font-mono); font-size: 10px; font-weight: 500;
-    text-transform: uppercase; letter-spacing: 2.5px;
-    color: var(--accent); margin-bottom: 12px;
+    font-family: var(--font-mono);
+    font-size: 10px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 2.5px;
+    color: var(--accent);
+    margin-bottom: 12px;
   }
   section h2 {
     font-family: var(--font-display);
     font-size: clamp(26px, 3.5vw, 34px);
-    font-weight: 600; color: var(--text); margin-bottom: 20px; line-height: 1.25;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 20px;
+    line-height: 1.25;
   }
   section h3 {
-    font-size: 18px; font-weight: 600; color: var(--text); margin: 32px 0 12px;
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--text);
+    margin: 32px 0 12px;
   }
   section h4 { font-size: 15px; font-weight: 600; color: var(--text); margin: 20px 0 8px; }
-  section p { color: var(--text-secondary); margin-bottom: 16px; }
+  section p {
+    color: var(--text-secondary);
+    margin-bottom: 16px;
+  }
   section p strong { color: var(--text); font-weight: 600; }
   section ul, section ol {
     padding-left: 20px; color: var(--text-secondary); margin-bottom: 16px;
@@ -174,7 +255,10 @@
 
   /* ── CALLOUT ── */
   .callout {
-    padding: 20px 24px; border-radius: var(--radius); border-left: 3px solid; margin: 20px 0;
+    padding: 20px 24px;
+    border-radius: var(--radius);
+    border-left: 3px solid;
+    margin: 20px 0;
   }
   .callout.warn { background: var(--orange-dim); border-color: var(--orange); }
   .callout.warn .callout-title { color: var(--orange); }
@@ -187,8 +271,12 @@
   .callout.accent { background: var(--accent-dim); border-color: var(--accent); }
   .callout.accent .callout-title { color: var(--accent); }
   .callout-title {
-    font-weight: 600; font-size: 13.5px; margin-bottom: 6px;
-    display: flex; align-items: center; gap: 8px;
+    font-weight: 600;
+    font-size: 13.5px;
+    margin-bottom: 6px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
   }
   .callout p { color: var(--text-secondary); margin: 0; font-size: 14px; }
 
@@ -342,21 +430,21 @@
 
 <div class="progress-bar-container"><div class="progress-bar" id="progressBar"></div></div>
 
-<button class="sidebar-toggle" id="sidebarToggle" aria-label="Abrir navegação">
+<button class="sidebar-toggle" id="sidebarToggle" aria-label="Open navigation">
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
 </button>
 <div class="sidebar-overlay" id="sidebarOverlay"></div>
 <nav class="sidebar" id="sidebar">
-  <h3>Navegação</h3>
-  <a href="#intro">Introdução</a>
-  <div class="nav-section">Etapas</div>
-  <a href="#step1">1 · Treinamento da IA</a>
-  <a href="#step2">2 · Visão Geral da Função</a>
-  <a href="#step3">3 · Passo a Passo do Q/A</a>
-  <a href="#step4">4 · Decisão Final</a>
-  <a href="#step5">5 · Q/A Pós Needs Correction</a>
-  <div class="nav-section">Referência</div>
-  <a href="index.html">← Voltar ao Guia Principal</a>
+  <h3>Navigation</h3>
+  <a href="#intro">Introduction</a>
+  <div class="nav-section">Steps</div>
+  <a href="#step1">1 · Understanding AI Training</a>
+  <a href="#step2">2 · Function Overview</a>
+  <a href="#step3">3 · Q/A Step-by-Step</a>
+  <a href="#step4">4 · Final Decision</a>
+  <a href="#step5">5 · Q/A After Needs Correction</a>
+  <div class="nav-section">Reference</div>
+  <a href="index.html">← Back to Main Guide</a>
 </nav>
 
 <button class="back-to-top" id="backToTop">
@@ -367,211 +455,211 @@
 
   <!-- HERO -->
   <header class="hero" id="intro">
-    <div class="hero-badge">● Onboarding Ideal — Q/A</div>
-    <h1>O Guia de<br><em>Onboarding Ideal</em></h1>
+    <div class="hero-badge">● Ideal Onboarding — Q/A</div>
+    <h1>The <em>Ideal Onboarding</em> Guide</h1>
     <p class="hero-sub">
-      Tudo que você precisa entender antes de fazer sua primeira revisão — do papel do Q/A até a decisão final de aprovar, corrigir ou rejeitar.
+      Everything you need to understand before your first review — from the Q/A role to the final decision of approving, correcting, or rejecting.
     </p>
     <a href="index.html" class="back-link">
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
-      Voltar ao Guia Principal
+      Back to Main Guide
     </a>
   </header>
 
   <!-- ══════════════════════════════════════════
-       ETAPA 1 — ENTENDENDO O TREINAMENTO DA IA
+       STEP 1 — UNDERSTANDING AI TRAINING
   ══════════════════════════════════════════ -->
   <section id="step1" class="fade-in">
     <div class="step-header">
       <div class="step-number">1</div>
       <div class="step-title-block">
-        <div class="section-label">Etapa 1 de 5</div>
-        <h2>Entendendo o Treinamento da IA e o Papel do Q/A</h2>
+        <div class="section-label">Step 1 of 5</div>
+        <h2>Understanding AI Training and the Q/A Role</h2>
       </div>
     </div>
     <div class="sep"></div>
 
-    <p>Muitas pessoas entram no projeto achando que vão <strong>treinar a IA diretamente</strong> — com foco total no assistente. Quem já foi Tasker costuma chegar mais familiarizado, pois já foi quem conversava com o assistente. É importante corrigir essa visão desde o início.</p>
+    <p>Many people enter the project thinking they will <strong>train the AI directly</strong> — with full focus on the assistant. Those who have been Taskers before tend to arrive more familiar, since they were the ones talking to the assistant. It's important to correct this view from the start.</p>
 
     <div class="callout accent">
-      <div class="callout-title">🎭 Pense como um Diretor de Teatro</div>
-      <p>O Q/A não avalia o que a IA disse. O Q/A avalia a <strong>performance do Tasker</strong> — como um diretor por trás da encenação. Você verifica se o ator seguiu o roteiro, ficou no personagem e entregou uma cena convincente.</p>
+      <div class="callout-title">🎭 Think Like a Theater Director</div>
+      <p>The Q/A doesn't evaluate what the AI said. The Q/A evaluates the <strong>Tasker's performance</strong> — like a director behind the scenes. You check if the actor followed the script, stayed in character, and delivered a convincing scene.</p>
     </div>
 
-    <h3>Os Personagens do Processo</h3>
+    <h3>The Characters in the Process</h3>
     <div class="two-col">
       <div class="role-card">
         <div class="role-icon">🎯</div>
-        <h4>A Tarefa</h4>
-        <p>Tem um objetivo de treinamento bem definido: expor a IA a situações da vida real que parecem simples mas escondem complexidade. O mesmo cenário pode mudar completamente dependendo dos fatores envolvidos.</p>
+        <h4>The Task</h4>
+        <p>Has a well-defined training objective: exposing the AI to real-life situations that seem simple but hide complexity. The same scenario can change completely depending on the factors involved.</p>
       </div>
       <div class="role-card">
         <div class="role-icon">🎬</div>
-        <h4>O Tasker (Ator)</h4>
-        <p>É um especialista na área da tarefa. Seu papel é simular o cenário de forma autêntica: lê o roteiro (Scenario Context), entende seu papel (User Persona) e conduz a conversa com o assistente de forma natural.</p>
+        <h4>The Tasker (Actor)</h4>
+        <p>Is an expert in the task's subject area. Their role is to simulate the scenario authentically: they read the script (Scenario Context), understand their role (User Persona), and conduct the conversation with the assistant naturally.</p>
       </div>
       <div class="role-card">
         <div class="role-icon">🤖</div>
-        <h4>O Assistente (IA)</h4>
-        <p>É o outro lado da conversa — o que está sendo testado. Mas atenção: <strong>você não avalia a qualidade das respostas da IA</strong>. Você avalia se o Tasker performou bem.</p>
+        <h4>The Assistant (AI)</h4>
+        <p>Is the other side of the conversation — the one being tested. But note: <strong>you do not evaluate the quality of the AI's responses</strong>. You evaluate whether the Tasker performed well.</p>
       </div>
       <div class="role-card">
         <div class="role-icon">🎓</div>
-        <h4>O Q/A (Você)</h4>
-        <p>É o diretor. Revisa sistematicamente o trabalho do Tasker, verifica se erros foram cometidos e decide se a tarefa pode ser aprovada, precisa de correção ou deve ser rejeitada.</p>
+        <h4>The Q/A (You)</h4>
+        <p>Is the director. You systematically review the Tasker's work, check if mistakes were made, and decide whether the task can be approved, needs correction, or should be rejected.</p>
       </div>
     </div>
 
-    <h3>Por que a Simulação Existe</h3>
-    <p>Para que a IA esteja pronta para lidar com cenários complexos da vida real, eles precisam ser testados — preferencialmente em <strong>ambiente controlado</strong>. O ideal é que uma mesma tarefa seja simulada mais de uma vez, com atores diferentes, pois sempre vão performar de maneiras distintas. Mas o intuito é o mesmo: aprendizado.</p>
+    <h3>Why the Simulation Exists</h3>
+    <p>For the AI to be ready to handle complex real-life scenarios, they need to be tested — preferably in a <strong>controlled environment</strong>. Ideally, the same task is simulated more than once, with different actors, since they will always perform in distinct ways. But the intent is the same: learning.</p>
 
-    <h3>O que Compõe uma Tarefa</h3>
+    <h3>What Makes Up a Task</h3>
     <div class="card">
       <ul>
-        <li><strong>Scenario Context</strong> — O objetivo da tarefa. Às vezes inclui instruções como "inicie assim", "depois fale sobre X", "a partir do momento que a persona revelar Y, foque em Z".</li>
-        <li><strong>User Persona</strong> — O personagem que o Tasker deve interpretar.</li>
-        <li><strong>Initial Prompt</strong> — A primeira mensagem enviada para o assistente.</li>
-        <li><strong>Hidden Context</strong> — Informações que o Tasker sabe mas não pode revelar de cara — devem emergir naturalmente ao longo da conversa.</li>
-        <li><strong>Evaluation Criteria</strong> — Parâmetros de performance esperados da IA. São condições específicas para determinar se a IA passou ou falhou em cada critério.</li>
+        <li><strong>Scenario Context</strong> — The task's objective. Sometimes includes instructions like "start this way", "then talk about X", "once the persona reveals Y, focus on Z".</li>
+        <li><strong>User Persona</strong> — The character the Tasker must portray.</li>
+        <li><strong>Initial Prompt</strong> — The first message sent to the assistant.</li>
+        <li><strong>Hidden Context</strong> — Information the Tasker knows but cannot reveal upfront — it must emerge naturally throughout the conversation.</li>
+        <li><strong>Evaluation Criteria</strong> — Expected performance parameters for the AI. These are specific conditions to determine whether the AI passed or failed each criterion.</li>
       </ul>
     </div>
 
     <div class="callout info">
-      <div class="callout-title">💡 A Ideia Central</div>
-      <p>Você revisa o trabalho do <strong>humano</strong>, não do assistente. A qualidade das respostas da IA é consequência do treinamento — o que você garante é que o <em>dado de entrada</em> (a conversa do Tasker) foi bem executado.</p>
+      <div class="callout-title">💡 The Core Idea</div>
+      <p>You review the <strong>human's</strong> work, not the assistant's. The quality of the AI's responses is a result of training — what you ensure is that the <em>input data</em> (the Tasker's conversation) was well executed.</p>
     </div>
   </section>
 
   <!-- ══════════════════════════════════════════
-       ETAPA 2 — VISÃO GERAL DA FUNÇÃO
+       STEP 2 — FUNCTION OVERVIEW
   ══════════════════════════════════════════ -->
   <section id="step2" class="fade-in">
     <div class="step-header">
       <div class="step-number">2</div>
       <div class="step-title-block">
-        <div class="section-label">Etapa 2 de 5</div>
-        <h2>Visão Geral da Função e a Plataforma</h2>
+        <div class="section-label">Step 2 of 5</div>
+        <h2>Function Overview &amp; the Platform</h2>
       </div>
     </div>
     <div class="sep"></div>
 
     <div class="callout accent">
-      <div class="callout-title">🎭 A Ação Central: Conduct Conversation</div>
-      <p>Dentro de cada tarefa, a ação <strong>Conduct Conversation</strong> é o momento em que a peça acontece de verdade. É aqui que o Tasker entra em cena — assume a persona, lê o roteiro (Scenario Context + Hidden Context) e conduz a conversa com o assistente como se fosse uma pessoa real naquela situação.</p>
-      <p style="margin-top: 12px;">Pense assim: se a tarefa é o roteiro, o <strong>Conduct Conversation</strong> é a filmagem. Sem uma boa filmagem, o roteiro não serve para nada.</p>
-      <p style="margin-top: 12px;"><strong>Mínimo de 5 rounds de conversa.</strong> Assim como uma cena curta demais não conta uma história completa, uma conversa com menos de 5 trocas raramente desenvolve a narrativa o suficiente para ser útil ao treinamento. O mínimo de 5 rounds é o comprimento mínimo da cena para que a história faça sentido.</p>
+      <div class="callout-title">🎭 The Central Action: Conduct Conversation</div>
+      <p>Within each task, the <strong>Conduct Conversation</strong> action is where the play truly happens. This is where the Tasker steps on stage — takes on the persona, reads the script (Scenario Context + Hidden Context), and conducts the conversation with the assistant as if they were a real person in that situation.</p>
+      <p style="margin-top: 12px;">Think of it this way: if the task is the screenplay, the <strong>Conduct Conversation</strong> is the filming. Without a good filming, the screenplay is worthless.</p>
+      <p style="margin-top: 12px;"><strong>Minimum of 5 conversation rounds.</strong> Just as a scene that is too short doesn't tell a complete story, a conversation with fewer than 5 exchanges rarely develops the narrative enough to be useful for training. The minimum of 5 rounds is the minimum scene length for the story to make sense.</p>
     </div>
 
-    <h3>Como Pegar Novas Tarefas</h3>
-    <p>As tarefas são atribuídas via <strong>auto-assign</strong> na plataforma. Se tiver algum problema ou dúvida sobre uma tarefa específica, mande a dúvida no canal do Slack ou busque alguém da equipe diretamente.</p>
+    <h3>How to Get New Tasks</h3>
+    <p>Tasks are assigned via <strong>auto-assign</strong> on the platform. If you have any problem or question about a specific task, send it to the Slack channel or reach out directly to someone on the team.</p>
 
     <div class="callout warn">
-      <div class="callout-title">⚠️ Filtros Corretos — Sempre</div>
-      <p>Aplique <code>Status: in review</code> primeiro, depois <code>oldest first</code>. Na ordem errada, tarefas mais antigas podem não aparecer e a fila quebra.</p>
+      <div class="callout-title">⚠️ Correct Filters — Always</div>
+      <p>Apply <code>Status: in review</code> first, then <code>oldest first</code>. In the wrong order, older tasks may not appear and the queue breaks.</p>
     </div>
 
-    <h3>O que é da Tarefa vs. o que é do Tasker</h3>
-    <p>Esta distinção é crítica para identificar uso de IA corretamente. Muitos Q/As iniciantes ficam procurando travessão em tudo — mas <strong>o travessão pode estar no conteúdo pré-definido da tarefa, não no Tasker</strong>.</p>
+    <h3>What Belongs to the Task vs. the Tasker</h3>
+    <p>This distinction is critical for correctly identifying AI use. Many beginner Q/As go looking for em-dashes everywhere — but <strong>the em-dash may be in the task's pre-defined content, not from the Tasker</strong>.</p>
 
     <div class="two-col">
       <div class="card">
-        <h4 style="color: var(--blue);">📋 Conteúdo da Tarefa (pré-definido)</h4>
+        <h4 style="color: var(--blue);">📋 Task Content (pre-defined)</h4>
         <ul>
           <li>User Persona</li>
           <li>Scenario Context</li>
-          <li>Initial Prompt (às vezes pré-definido)</li>
+          <li>Initial Prompt (sometimes pre-defined)</li>
           <li>Hidden Context</li>
-          <li>Descrições dos critérios de avaliação</li>
+          <li>Evaluation criteria descriptions</li>
         </ul>
       </div>
       <div class="card">
-        <h4 style="color: var(--green);">✍️ Conteúdo do Tasker (escrito pelo humano)</h4>
+        <h4 style="color: var(--green);">✍️ Tasker Content (written by the human)</h4>
         <ul>
-          <li>Initial Prompt (se modificado ou escrito do zero)</li>
-          <li>Todas as mensagens na conversa com o assistente</li>
-          <li>Justificativas de pass/fail nos critérios</li>
+          <li>Initial Prompt (if modified or written from scratch)</li>
+          <li>All messages in the conversation with the assistant</li>
+          <li>Pass/fail justifications for the criteria</li>
         </ul>
       </div>
     </div>
 
     <div class="callout info">
-      <div class="callout-title">🔍 Como verificar se o Initial Prompt foi editado</div>
-      <p>Use o <strong>histórico da tarefa (History)</strong> para ver se o Tasker modificou o Initial Prompt pré-definido ou criou um novo. Isso é importante para entender se o conteúdo é original do Tasker ou da tarefa.</p>
+      <div class="callout-title">🔍 How to check if the Initial Prompt was edited</div>
+      <p>Use the <strong>task history (History)</strong> to see if the Tasker modified the pre-defined Initial Prompt or created a new one. This is important for understanding whether the content is original from the Tasker or from the task.</p>
     </div>
 
-    <h3>Situações Técnicas e o que Fazer</h3>
+    <h3>Technical Situations and What to Do</h3>
     <div class="accordion">
       <div class="accordion-header" onclick="toggleAccordion(this)">
-        <span class="accordion-tag blue">Caso</span>
-        <span class="accordion-title">Task sem conversa</span>
+        <span class="accordion-tag blue">Case</span>
+        <span class="accordion-title">Task with no conversation</span>
         <svg class="accordion-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
       </div>
       <div class="accordion-body">
-        <div class="accordion-content">Vá nos três pontos da tarefa e use a opção <strong>Report</strong>. Não tente corrigir ou aprovar uma tarefa sem conversa — reporte ao time.</div>
-      </div>
-    </div>
-    <div class="accordion">
-      <div class="accordion-header" onclick="toggleAccordion(this)">
-        <span class="accordion-tag blue">Caso</span>
-        <span class="accordion-title">Task sem critérios de avaliação respondidos</span>
-        <svg class="accordion-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
-      </div>
-      <div class="accordion-body">
-        <div class="accordion-content">Mesma ação — use os <strong>três pontos → Report</strong>. Anote o problema claramente no campo de descrição.</div>
+        <div class="accordion-content">Go to the task's three-dot menu and use the <strong>Report</strong> option. Do not try to correct or approve a task with no conversation — report it to the team.</div>
       </div>
     </div>
     <div class="accordion">
       <div class="accordion-header" onclick="toggleAccordion(this)">
-        <span class="accordion-tag orange">Caso</span>
-        <span class="accordion-title">Tasker comentou que não quer corrigir</span>
+        <span class="accordion-tag blue">Case</span>
+        <span class="accordion-title">Task with no evaluation criteria answered</span>
         <svg class="accordion-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
       </div>
       <div class="accordion-body">
-        <div class="accordion-content">Use os <strong>três pontos → Report</strong> e escale para o time. Documente o comentário do Tasker. Não force a aprovação de uma tarefa que não atende os padrões.</div>
+        <div class="accordion-content">Same action — use the <strong>three-dot menu → Report</strong>. Note the problem clearly in the description field.</div>
+      </div>
+    </div>
+    <div class="accordion">
+      <div class="accordion-header" onclick="toggleAccordion(this)">
+        <span class="accordion-tag orange">Case</span>
+        <span class="accordion-title">Tasker commented they don't want to correct</span>
+        <svg class="accordion-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+      <div class="accordion-body">
+        <div class="accordion-content">Use the <strong>three-dot menu → Report</strong> and escalate to the team. Document the Tasker's comment. Do not force approval of a task that doesn't meet the standards.</div>
       </div>
     </div>
 
-    <h3>Características de um Bom Feedback</h3>
-    <p>Independente da decisão (aprovado, needs correction ou rejection), seu feedback deve ser <strong>específico, acionável e baseado em evidência</strong>. Veja as diferenças:</p>
+    <h3>Characteristics of Good Feedback</h3>
+    <p>Regardless of the decision (approved, needs correction, or rejection), your feedback must be <strong>specific, actionable, and evidence-based</strong>. See the differences:</p>
 
-    <div class="example-block bad">✗ Genérico: "O prompt tem problemas, por favor corrija."</div>
-    <div class="example-block good">✓ Específico: "O Initial Prompt menciona diretamente a dívida de R$50k — isso é parte do Hidden Context. Remova a referência ao valor específico e reescreva para que a IA descubra essa informação naturalmente ao longo da conversa."</div>
+    <div class="example-block bad">✗ Generic: "The prompt has issues, please correct it."</div>
+    <div class="example-block good">✓ Specific: "The Initial Prompt directly mentions the $50k debt — this is part of the Hidden Context. Remove the reference to the specific amount and rewrite so the AI discovers this information naturally throughout the conversation."</div>
 
     <div class="two-col" style="margin-top: 16px;">
       <div class="card">
-        <h4>Se o Tasker errou</h4>
-        <p style="font-size: 13.5px; color: var(--text-muted);">Seja específico: cite a mensagem, o campo ou a parte exata onde o erro ocorreu. Não use frases prontas ou genéricas — feedback incompleto pode fazer o Tasker refazer tudo e ainda precisar de novas correções.</p>
+        <h4>If the Tasker made a mistake</h4>
+        <p style="font-size: 13.5px; color: var(--text-muted);">Be specific: cite the message, field, or exact part where the error occurred. Don't use canned or generic phrases — incomplete feedback can make the Tasker redo everything and still need further corrections.</p>
       </div>
       <div class="card">
-        <h4>Se for sugestão de melhoria</h4>
-        <p style="font-size: 13.5px; color: var(--text-muted);">Mesmo em tasks aprovadas, oriente quando pertinente: "tome cuidado para não deixar conversa sem finalização", "lembre que a ideia é não dar dicas ao assistente".</p>
+        <h4>If it's a suggested improvement</h4>
+        <p style="font-size: 13.5px; color: var(--text-muted);">Even in approved tasks, guide when relevant: "be careful not to leave the conversation without a proper closing", "remember the idea is not to give hints to the assistant".</p>
       </div>
     </div>
 
     <div class="callout success">
-      <div class="callout-title">✓ Elogiar quando merece</div>
-      <p>Se encontrar algo excelente, elogie. Isso motiva o Tasker a continuar com o bom trabalho e reforça o que deve ser repetido.</p>
+      <div class="callout-title">✓ Praise when deserved</div>
+      <p>If you find something excellent, say so. This motivates the Tasker to keep up the good work and reinforces what should be repeated.</p>
     </div>
 
     <div class="card" style="margin-top: 20px;">
-      <h4>Nota sobre Initial Prompt pré-definido</h4>
-      <p style="font-size: 14px; color: var(--text-secondary);">Se você perceber que o Tasker iniciou com o prompt pré-definido pela tarefa (que frequentemente vaza informações — nem sempre críticas), pode comentar assim:</p>
+      <h4>Note about pre-defined Initial Prompt</h4>
+      <p style="font-size: 14px; color: var(--text-secondary);">If you notice the Tasker started with the task's pre-defined prompt (which frequently leaks information — not always critically), you can comment like this:</p>
       <div class="example-block" style="margin-top: 12px; font-family: var(--font-mono); font-size: 13px;">
         "The conversation started with the task's pre-defined prompt; while this is not prohibited, please ensure it aligns with the task's purpose. Remember that as a reviewer, we expect you to verify if the initial prompt is consistent with the persona and scenario, and that it contains no significant hidden context leakage."
       </div>
-      <p style="font-size: 13px; color: var(--text-muted); margin-top: 8px; margin-bottom: 0;"><em>Obs: Se não tiver certeza se é o initial prompt pré-definido, não comente sobre isso.</em></p>
+      <p style="font-size: 13px; color: var(--text-muted); margin-top: 8px; margin-bottom: 0;"><em>Note: If you're not sure whether it's the pre-defined initial prompt, don't comment on it.</em></p>
     </div>
   </section>
 
   <!-- ══════════════════════════════════════════
-       ETAPA 3 — PASSO A PASSO DO Q/A
+       STEP 3 — Q/A STEP-BY-STEP
   ══════════════════════════════════════════ -->
   <section id="step3" class="fade-in">
     <div class="step-header">
       <div class="step-number">3</div>
       <div class="step-title-block">
-        <div class="section-label">Etapa 3 de 5</div>
-        <h2>Passo a Passo do Q/A — Como Sistematizar uma Correção</h2>
+        <div class="section-label">Step 3 of 5</div>
+        <h2>Q/A Step-by-Step — How to Systematize a Review</h2>
       </div>
     </div>
     <div class="sep"></div>
@@ -580,293 +668,293 @@
       <li>
         <div class="step-num">1</div>
         <div class="step-content">
-          <strong>Familiarize-se com a tarefa</strong>
-          <p>Verifique se há comentários do Tasker com alguma dificuldade específica, ou se já tem feedback de correção anterior. Se tiver, a tarefa está voltando de uma correção — leia o histórico com atenção (ver Etapa 5).</p>
+          <strong>Familiarize yourself with the task</strong>
+          <p>Check if the Tasker left any comments about a specific difficulty, or if there is already feedback from a previous correction. If there is, the task is coming back from a correction — read the history carefully (see Step 5).</p>
         </div>
       </li>
       <li>
         <div class="step-num">2</div>
         <div class="step-content">
-          <strong>Verifique o Initial Prompt</strong>
-          <p>Ele é natural para a persona? Há vazamentos críticos de Hidden Context? Compare o Initial Prompt da aba Scenario Details com o da conversa com o assistente. Se forem diferentes e você não souber o que aconteceu, peça ajuda no canal.</p>
+          <strong>Check the Initial Prompt</strong>
+          <p>Is it natural for the persona? Are there critical Hidden Context leaks? Compare the Initial Prompt in the Scenario Details tab with the one in the conversation with the assistant. If they differ and you're not sure what happened, ask for help in the channel.</p>
         </div>
       </li>
       <li>
         <div class="step-num">3</div>
         <div class="step-content">
-          <strong>Avalie a conversa</strong>
-          <p>Leia todos os turnos antes de julgar qualquer coisa. Veja os critérios abaixo.</p>
+          <strong>Evaluate the conversation</strong>
+          <p>Read all turns before judging anything. See the criteria below.</p>
         </div>
       </li>
       <li>
         <div class="step-num">4</div>
         <div class="step-content">
-          <strong>Avalie os critérios de avaliação</strong>
-          <p>Verifique se os PASS/FAIL fazem sentido e se as justificativas são baseadas em evidências.</p>
+          <strong>Evaluate the evaluation criteria</strong>
+          <p>Check whether the PASS/FAIL decisions make sense and whether the justifications are evidence-based.</p>
         </div>
       </li>
     </ul>
 
-    <h3>O que é Vazamento Crítico de Hidden Context?</h3>
-    <p>É o vazamento de Hidden Context que <strong>torna a conversa fácil demais</strong>, sem desafio nenhum. Como identificar: geralmente a conversa não flui e o usuário fica tentando desenvolver algo que não avança.</p>
-    <p>Se quiser um critério mais objetivo: não revelar mais do que 2 hard constraints no Initial Prompt. <strong>Reescrever o Hidden Context também é considerado vazamento.</strong></p>
+    <h3>What is Critical Hidden Context Leakage?</h3>
+    <p>It is the leakage of Hidden Context that <strong>makes the conversation too easy</strong>, with no challenge at all. How to identify it: the conversation usually doesn't flow and the user keeps trying to develop something that goes nowhere.</p>
+    <p>If you want a more objective criterion: do not reveal more than 2 hard constraints in the Initial Prompt. <strong>Rewriting the Hidden Context is also considered leakage.</strong></p>
     <div class="callout danger">
-      <div class="callout-title">🔪 Regra da Knife</div>
-      <p>Nunca revelar a knife (o elemento central do Hidden Context), nem parte dela, nem dar pistas sobre ela no Initial Prompt.</p>
+      <div class="callout-title">🔪 The Knife Rule</div>
+      <p>Never reveal the knife (the central element of the Hidden Context), not even part of it, nor hint at it in the Initial Prompt.</p>
     </div>
 
-    <h3>Critérios de Avaliação da Conversa</h3>
+    <h3>Conversation Evaluation Criteria</h3>
     <div class="accordion">
       <div class="accordion-header" onclick="toggleAccordion(this)">
-        <span class="accordion-tag blue">Verificar</span>
-        <span class="accordion-title">A conversa está toda em inglês?</span>
+        <span class="accordion-tag blue">Check</span>
+        <span class="accordion-title">Is the conversation entirely in English?</span>
         <svg class="accordion-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
       </div>
       <div class="accordion-body">
-        <div class="accordion-content">As mensagens do Tasker devem estar em inglês. Qualquer mistura de idiomas é um sinal de alerta.</div>
+        <div class="accordion-content">The Tasker's messages must be in English. Any mixing of languages is a red flag.</div>
       </div>
     </div>
     <div class="accordion">
       <div class="accordion-header" onclick="toggleAccordion(this)">
-        <span class="accordion-tag blue">Verificar</span>
-        <span class="accordion-title">A conversa é natural?</span>
+        <span class="accordion-tag blue">Check</span>
+        <span class="accordion-title">Is the conversation natural?</span>
         <svg class="accordion-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
       </div>
       <div class="accordion-body">
-        <div class="accordion-content">As mensagens soam como uma pessoa real? Linguagem casual, adequada ao persona, sem padrões robóticos ou excessivamente polidos.</div>
+        <div class="accordion-content">Do the messages sound like a real person? Casual language, appropriate to the persona, without robotic or excessively polished patterns.</div>
       </div>
     </div>
     <div class="accordion">
       <div class="accordion-header" onclick="toggleAccordion(this)">
-        <span class="accordion-tag blue">Verificar</span>
-        <span class="accordion-title">O Tasker manteve a persona até o final?</span>
+        <span class="accordion-tag blue">Check</span>
+        <span class="accordion-title">Did the Tasker maintain the persona until the end?</span>
         <svg class="accordion-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
       </div>
       <div class="accordion-body">
-        <div class="accordion-content">Às vezes o Tasker se descuida e começa a falar em terceira pessoa, ou age como se estivesse corrigindo a IA. Em uma conversa real, você não se confunde sobre quem você é.</div>
+        <div class="accordion-content">Sometimes the Tasker slips and starts speaking in the third person, or acts as if they are correcting the AI. In a real conversation, you don't get confused about who you are.</div>
       </div>
     </div>
     <div class="accordion">
       <div class="accordion-header" onclick="toggleAccordion(this)">
-        <span class="accordion-tag blue">Verificar</span>
-        <span class="accordion-title">O Tasker interage com o assistente ou despeja informações?</span>
+        <span class="accordion-tag blue">Check</span>
+        <span class="accordion-title">Does the Tasker interact with the assistant or just dump information?</span>
         <svg class="accordion-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
       </div>
       <div class="accordion-body">
         <div class="accordion-content">
-          A ideia é <strong>não dar dicas ao assistente</strong>, não dificultar artificialmente, mas também não facilitar demais. As informações devem ser reveladas de maneira orgânica — geralmente relacionando a última mensagem enviada pelo assistente.<br><br>
-          Se parece que informações novas estão sendo adicionadas sem contexto, ou que o Tasker está guiando a IA para uma resposta específica, isso é um problema.
+          The idea is <strong>not to give hints to the assistant</strong>, not to make things artificially difficult, but also not to make them too easy. Information should be revealed organically — usually by relating to the last message sent by the assistant.<br><br>
+          If it seems like new information is being added without context, or that the Tasker is guiding the AI toward a specific answer, that's a problem.
         </div>
       </div>
     </div>
     <div class="accordion">
       <div class="accordion-header" onclick="toggleAccordion(this)">
-        <span class="accordion-tag red">Verificar</span>
-        <span class="accordion-title">Há uso claro de IA?</span>
+        <span class="accordion-tag red">Check</span>
+        <span class="accordion-title">Is there clear AI use?</span>
         <svg class="accordion-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
       </div>
       <div class="accordion-body">
         <div class="accordion-content">
-          <strong>Isso será tratado em detalhes na Etapa 4.</strong> Por ora, sinais de alerta: linguagem excessivamente polida e templateada, estrutura formatada de forma consistente em todos os turnos, presença de comandos para outra IA ou trechos de conversas com outra IA.
+          <strong>This will be covered in detail in Step 4.</strong> For now, red flags include: excessively polished and templated language, consistently formatted structure across all turns, presence of commands to another AI or excerpts from conversations with another AI.
           <br><br>
-          Importante: <strong>gramática polida por si só não é suficiente para acusar uso de IA</strong>. Mas você pode mencionar ao Tasker que o uso de gramática muito formal e excesso de pontuação formal pode não ser tão natural e pode sugerir ajuda externa.
+          Important: <strong>polished grammar alone is not sufficient to accuse someone of AI use</strong>. But you can mention to the Tasker that very formal grammar and excess of formal punctuation may not feel natural and could suggest external assistance.
         </div>
       </div>
     </div>
     <div class="accordion">
       <div class="accordion-header" onclick="toggleAccordion(this)">
-        <span class="accordion-tag blue">Verificar</span>
-        <span class="accordion-title">A knife foi revelada no momento certo?</span>
+        <span class="accordion-tag blue">Check</span>
+        <span class="accordion-title">Was the knife revealed at the right moment?</span>
         <svg class="accordion-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
       </div>
       <div class="accordion-body">
         <div class="accordion-content">
-          A knife deve ser revelada <strong>SE</strong>:
+          The knife should be revealed <strong>IF</strong>:
           <ul>
-            <li>O assistente merecer — perguntando, citando o assunto relacionado, criando um gancho natural para isso</li>
-            <li>For natural para aquela persona compartilhar naquele momento</li>
+            <li>The assistant deserves it — by asking, referencing the related topic, or creating a natural hook for it</li>
+            <li>It is natural for that persona to share it at that moment</li>
           </ul>
-          Se o Tasker perdeu uma oportunidade <em>clara</em> de revelar, isso pode ser um Needs Correction. Mas se a culpa de não ter revelado é do assistente (que nunca perguntou), não é problema.<br><br>
-          O ideal é que seja revelada a partir da <strong>terceira mensagem</strong> enviada. Mas se for extremamente natural antes, pode-se ponderar.
+          If the Tasker missed a <em>clear</em> opportunity to reveal it, that can be a Needs Correction. But if the fault of not revealing lies with the assistant (who never asked), it's not a problem.<br><br>
+          Ideally it should be revealed starting from the <strong>third message</strong> sent. But if it's extremely natural before that, it can be weighed accordingly.
         </div>
       </div>
     </div>
     <div class="accordion">
       <div class="accordion-header" onclick="toggleAccordion(this)">
-        <span class="accordion-tag blue">Verificar</span>
-        <span class="accordion-title">O mínimo real de mensagens foi atingido?</span>
+        <span class="accordion-tag blue">Check</span>
+        <span class="accordion-title">Was the real minimum number of messages reached?</span>
         <svg class="accordion-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
       </div>
       <div class="accordion-body">
         <div class="accordion-content">
-          O mínimo são 14 mensagens trocadas (incluindo o Initial Prompt). Mas o importante é que <strong>as mensagens tenham conteúdo</strong>.<br><br>
-          Se no final ficou com múltiplos "thank you", ou vários pontos isolados, ou mensagens sem conteúdo real — isso não conta como conversa desenvolvida. <strong>Um "obrigada" no final é aceitável, mais do que um não.</strong>
+          The minimum is 14 exchanged messages (including the Initial Prompt). But what matters is that <strong>the messages have content</strong>.<br><br>
+          If the end is filled with multiple "thank you"s, several isolated points, or messages with no real content — that doesn't count as a developed conversation. <strong>One "thank you" at the end is acceptable, more than one is not.</strong>
         </div>
       </div>
     </div>
     <div class="accordion">
       <div class="accordion-header" onclick="toggleAccordion(this)">
-        <span class="accordion-tag blue">Verificar</span>
-        <span class="accordion-title">A conversa foi concluída?</span>
+        <span class="accordion-tag blue">Check</span>
+        <span class="accordion-title">Was the conversation concluded?</span>
         <svg class="accordion-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
       </div>
       <div class="accordion-body">
         <div class="accordion-content">
-          Nem todas as conversas precisam de uma conclusão sólida. Mas a história não deve ser interrompida na metade só porque atingiu o mínimo de mensagens.<br><br>
-          Você pode deixar como feedback ao Tasker que ele se sinta à vontade para explorar a história mais — desde que de forma natural, sem pressão pelo mínimo.
+          Not all conversations need a solid conclusion. But the story should not be cut halfway just because the minimum message count was reached.<br><br>
+          You can leave it as feedback to the Tasker that they feel free to explore the story further — as long as it's done naturally, without pressure from the minimum.
         </div>
       </div>
     </div>
 
-    <h3>Avaliando os Critérios de Avaliação</h3>
-    <p>Você concorda com os PASS/FAIL? Costumamos buscar pontos mais críticos — quando claramente a IA não fez o descrito e ganhou PASS, ou vice-versa. Se o critério for subjetivo e a justificativa for plausível mas você discordar, <strong>não precisa mandar para correção</strong> — valorize a opinião do Tasker (que geralmente tem conhecimento na área).</p>
+    <h3>Evaluating the Evaluation Criteria</h3>
+    <p>Do you agree with the PASS/FAIL decisions? We typically look for more critical points — when the AI clearly did not do what was described and still got a PASS, or vice versa. If the criterion is subjective and the justification is plausible but you disagree, <strong>you don't need to send it for correction</strong> — value the Tasker's opinion (who generally has domain expertise).</p>
 
     <div class="two-col">
       <div class="card">
-        <h4>Justificativa ideal</h4>
+        <h4>Ideal justification</h4>
         <div class="example-block good">Passed: In turn 5, the AI asked about income stability. In turn 7, it probed monthly expenses. By turn 9, it synthesized both into a tailored savings plan — directly addressing the 'financial assessment' criterion.</div>
       </div>
       <div class="card">
-        <h4>Justificativa boa (sem referências)</h4>
-        <p style="font-size: 13.5px; color: var(--text-muted);">Se estiver bem explicado mas sem referências de turno, deixe como <strong>sugestão</strong> para que ele comece a referenciar nas próximas — não mande para correção.</p>
+        <h4>Good justification (without turn references)</h4>
+        <p style="font-size: 13.5px; color: var(--text-muted);">If it's well explained but lacks turn references, leave it as a <strong>suggestion</strong> for them to start referencing in future tasks — don't send it for correction.</p>
       </div>
     </div>
 
     <div class="callout warn">
-      <div class="callout-title">⚠️ Justificativa genérica = Needs Correction</div>
-      <p>Se estiver genérico ("the AI was helpful", "the conversation was natural"), peça correção e oriente a trazer as referências específicas de turno.</p>
+      <div class="callout-title">⚠️ Generic justification = Needs Correction</div>
+      <p>If it's generic ("the AI was helpful", "the conversation was natural"), request a correction and guide them to bring specific turn references.</p>
     </div>
   </section>
 
   <!-- ══════════════════════════════════════════
-       ETAPA 4 — DECISÃO FINAL
+       STEP 4 — THE FINAL DECISION
   ══════════════════════════════════════════ -->
   <section id="step4" class="fade-in">
     <div class="step-header">
       <div class="step-number">4</div>
       <div class="step-title-block">
-        <div class="section-label">Etapa 4 de 5</div>
-        <h2>A Decisão Final e o que é Uso Claro de IA</h2>
+        <div class="section-label">Step 4 of 5</div>
+        <h2>The Final Decision and What Counts as Clear AI Use</h2>
       </div>
     </div>
     <div class="sep"></div>
 
-    <p>A régua de aprovação foi ajustada para evitar gargalos desnecessários. Saímos do filtro onde apenas o "Bom" passava para aceitar também o "Médio-Bom". Veja as categorias:</p>
+    <p>The approval threshold was adjusted to avoid unnecessary bottlenecks. We moved from a filter where only "Good" would pass to also accepting "Medium-Good". See the categories:</p>
 
     <div class="tier-card">
-      <div class="tier-label good">✓ Bom</div>
-      <p>"Sim, claro." Tudo certo, natural e bem avaliado. Aprovação imediata.</p>
+      <div class="tier-label good">✓ Good</div>
+      <p>"Yes, absolutely." Everything is correct, natural, and well evaluated. Immediate approval.</p>
     </div>
     <div class="tier-card">
-      <div class="tier-label mid-good">~ Médio-Bom</div>
-      <p>Não é um "sim claro", mas também não é um "não". Geralmente possui 1–2 "Yes" e alguns "Parcialmente" nos steps de Q/A. Pode ser aprovado com feedback.</p>
+      <div class="tier-label mid-good">~ Medium-Good</div>
+      <p>Not a clear "yes", but not a "no" either. Usually has 1–2 "Yes" and some "Partially" in the Q/A steps. Can be approved with feedback.</p>
     </div>
     <div class="tier-card">
-      <div class="tier-label mid-bad">! Médio-Ruim</div>
-      <p>Problemas estruturais ou de lógica. Precisa de correção.</p>
+      <div class="tier-label mid-bad">! Medium-Bad</div>
+      <p>Structural or logic problems. Needs correction.</p>
     </div>
     <div class="tier-card">
-      <div class="tier-label bad">✗ Ruim</div>
-      <p>Problemas graves. Dependendo da causa, Needs Correction ou Reject.</p>
+      <div class="tier-label bad">✗ Bad</div>
+      <p>Serious problems. Depending on the cause, Needs Correction or Reject.</p>
     </div>
 
-    <h3>Critério de Decisão: Aprovar vs. Corrigir</h3>
-    <p>Se a task for <strong>Médio-Bom</strong>, use a seguinte lógica:</p>
+    <h3>Decision Criteria: Approve vs. Correct</h3>
+    <p>If the task is <strong>Medium-Good</strong>, use the following logic:</p>
 
     <div class="two-col">
       <div class="card" style="border-color: var(--green-mid);">
-        <h4 style="color: var(--green);">→ Aprovar</h4>
-        <p style="font-size: 13.5px; color: var(--text-muted);">A correção seria custosa — para ajustar um detalhe, o Tasker teria que refazer quase tudo. Nesse caso, aprove com feedback orientativo.</p>
+        <h4 style="color: var(--green);">→ Approve</h4>
+        <p style="font-size: 13.5px; color: var(--text-muted);">The correction would be costly — to fix a detail, the Tasker would have to redo nearly everything. In this case, approve with guiding feedback.</p>
       </div>
       <div class="card" style="border-color: var(--accent-mid);">
         <h4 style="color: var(--accent);">→ Needs Correction</h4>
-        <p style="font-size: 13.5px; color: var(--text-muted);">É um Quick Fix — apenas continuar a conversa por mais um turno, ou corrigir um critério de avaliação aplicado errado. Vale o pedido de correção.</p>
+        <p style="font-size: 13.5px; color: var(--text-muted);">It's a Quick Fix — just continuing the conversation for one more turn, or correcting a misapplied evaluation criterion. The correction request is worth it.</p>
       </div>
     </div>
 
     <div class="callout info">
-      <div class="callout-title">📌 Hierarquia de importância</div>
-      <p><strong>Interpretação da persona ≥ Naturalidade e flow da conversa &gt; Bom uso do hidden context na conversa / sem vazamentos críticos no initial prompt.</strong></p>
+      <div class="callout-title">📌 Importance Hierarchy</div>
+      <p><strong>Persona interpretation ≥ Naturalness and conversation flow &gt; Good use of hidden context in the conversation / no critical leaks in the initial prompt.</strong></p>
     </div>
 
-    <h3>Quando Rejeitar</h3>
+    <h3>When to Reject</h3>
     <ul>
-      <li>Pedidos repetidos de correção (individualizado — avalie o histórico)</li>
-      <li>Uso <strong>claro</strong> de IA: presença de comandos para outra IA, trechos de conversas com outra IA</li>
+      <li>Repeated correction requests (individualized — assess the history)</li>
+      <li><strong>Clear</strong> AI use: presence of commands to another AI, excerpts from conversations with another AI</li>
     </ul>
 
     <div class="callout danger">
-      <div class="callout-title">🚨 O que é Uso Claro de IA</div>
-      <p>Não é apenas gramática polida. Uso claro inclui: comandos para outra IA visíveis no texto, trechos de conversas com ChatGPT ou similar, linguagem extremamente templateada e consistente em TODOS os turnos sem variação humana. <strong>Gramática polida por si só não é suficiente para acusar alguém de IA.</strong></p>
+      <div class="callout-title">🚨 What Counts as Clear AI Use</div>
+      <p>It's not just polished grammar. Clear use includes: commands to another AI visible in the text, excerpts from conversations with ChatGPT or similar, extremely templated and consistent language across ALL turns with no human variation. <strong>Polished grammar alone is not sufficient to accuse someone of AI use.</strong></p>
     </div>
 
-    <h3>Ficou com Dúvida?</h3>
+    <h3>Still Unsure?</h3>
     <div class="callout accent">
-      <div class="callout-title">💬 Protocolo de Dúvida</div>
-      <p>Mande o link da task no canal do Slack e peça orientação sobre como prosseguir. É sempre melhor perguntar do que tomar uma decisão errada.</p>
+      <div class="callout-title">💬 Doubt Protocol</div>
+      <p>Send the task link in the Slack channel and ask for guidance on how to proceed. It's always better to ask than to make the wrong decision.</p>
     </div>
   </section>
 
   <!-- ══════════════════════════════════════════
-       ETAPA 5 — Q/A PÓS NEEDS CORRECTION
+       STEP 5 — Q/A AFTER NEEDS CORRECTION
   ══════════════════════════════════════════ -->
   <section id="step5" class="fade-in">
     <div class="step-header">
       <div class="step-number">5</div>
       <div class="step-title-block">
-        <div class="section-label">Etapa 5 de 5</div>
-        <h2>Q/A Pós Needs Correction</h2>
+        <div class="section-label">Step 5 of 5</div>
+        <h2>Q/A After Needs Correction</h2>
       </div>
     </div>
     <div class="sep"></div>
 
-    <p>Quando uma tarefa volta de uma correção, o processo de revisão é diferente. Você precisa verificar não só a qualidade atual, mas se o feedback anterior foi devidamente aplicado.</p>
+    <p>When a task comes back from a correction, the review process is different. You need to verify not only the current quality, but whether the previous feedback was properly applied.</p>
 
     <ul class="step-list">
       <li>
         <div class="step-num">1</div>
         <div class="step-content">
-          <strong>Verifique o último feedback dado</strong>
-          <p>Leia o comentário de correção anterior antes de qualquer coisa. O que foi pedido? Foi pedido alterar o Initial Prompt? Continuar a conversa? Corrigir critérios?</p>
+          <strong>Check the last feedback given</strong>
+          <p>Read the previous correction comment before anything else. What was requested? Was it to change the Initial Prompt? Continue the conversation? Fix criteria?</p>
         </div>
       </li>
       <li>
         <div class="step-num">2</div>
         <div class="step-content">
-          <strong>Verifique se há comentário do Tasker</strong>
-          <p>Às vezes o Tasker comenta que não corrigiu por algum motivo específico (exemplo: "não sei como rodar uma nova conversa com o assistente"). Isso muda como você deve prosseguir.</p>
+          <strong>Check if the Tasker left a comment</strong>
+          <p>Sometimes the Tasker comments that they didn't correct for a specific reason (example: "I don't know how to run a new conversation with the assistant"). This changes how you should proceed.</p>
         </div>
       </li>
       <li>
         <div class="step-num">3</div>
         <div class="step-content">
-          <strong>Verifique o histórico de alterações</strong>
-          <p>Se o feedback era para alterar o Initial Prompt, o histórico deve constar essa alteração e mostrar uma nova conversa com o assistente. <strong>Sempre compare os dois Initial Prompts</strong> para confirmar que uma nova conversa foi rodada.</p>
+          <strong>Check the change history</strong>
+          <p>If the feedback was to change the Initial Prompt, the history should show that change and a new conversation with the assistant. <strong>Always compare both Initial Prompts</strong> to confirm that a new conversation was run.</p>
         </div>
       </li>
       <li>
         <div class="step-num">4</div>
         <div class="step-content">
-          <strong>Atenção: nem tudo aparece no histórico</strong>
-          <p>O histórico nem sempre registra todas as mudanças feitas. Mas as alterações de Initial Prompt geralmente ficam registradas. Use essa informação com critério.</p>
+          <strong>Note: not everything appears in the history</strong>
+          <p>The history doesn't always record all changes made. But Initial Prompt changes are usually recorded. Use this information carefully.</p>
         </div>
       </li>
     </ul>
 
     <div class="callout warn">
-      <div class="callout-title">⚠️ Se você discordar do feedback anterior</div>
-      <p>Faça sua análise individual e dê seu novo veredito, <strong>sem expor o colega no comentário da tarefa</strong>. Se o feedback anterior teve um erro muito grande, entre em contato com a equipe no privado e compartilhe isso de forma discreta.</p>
+      <div class="callout-title">⚠️ If you disagree with previous feedback</div>
+      <p>Do your own individual analysis and give your new verdict, <strong>without exposing your colleague in the task comment</strong>. If the previous feedback had a significant error, contact the team privately and share it discreetly.</p>
     </div>
 
     <div class="callout accent">
-      <div class="callout-title">🎯 Objetivo da Etapa 5</div>
-      <p>Garantir que a correção foi genuína — não só que a tarefa parece melhor, mas que as mudanças pedidas foram de fato implementadas. Uma task que "parece ok" mas não foi corrigida como pedido ainda deve ser mandada de volta.</p>
+      <div class="callout-title">🎯 Goal of Step 5</div>
+      <p>Ensure that the correction was genuine — not just that the task looks better, but that the requested changes were actually implemented. A task that "looks ok" but was not corrected as requested should still be sent back.</p>
     </div>
   </section>
 
   <footer>
     <p><strong>Onboarding Ideal — QA Multi-Turn</strong> · Vetto / Vector</p>
-    <p style="margin-top: 6px;"><a href="index.html" style="color: var(--accent); text-decoration: none;">← Voltar ao Guia Principal</a></p>
+    <p style="margin-top: 6px;"><a href="index.html" style="color: var(--accent); text-decoration: none;">← Back to Main Guide</a></p>
   </footer>
 </div>
 
